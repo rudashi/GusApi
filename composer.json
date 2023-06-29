@@ -1,0 +1,57 @@
+{
+    "name": "rudashi/gusapi",
+    "description": "PHP GUS API library.",
+    "type": "library",
+    "license": "ISC",
+    "keywords": [
+        "laravel",
+        "api",
+        "gus",
+        "bir1.1",
+        "bir1",
+        "bir",
+        "regon",
+        "nip",
+        "krs",
+        "ceidg",
+        "sisp-2"
+    ],
+    "homepage": "https://github.com/rudashi/gusapi",
+    "authors": [
+        {
+            "name": "Borys Żmuda",
+            "email": "rudashi@gmail.com",
+            "homepage": "https://rudashi.github.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-soap": "*",
+        "ext-simplexml": "*"
+    },
+    "require-dev": {
+        "pestphp/pest": "^v2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rudashi\\GusApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rudashi\\GusApi\\Tests\\": "tests"
+        },
+        "files": [
+            "tests/Pest.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
+}
