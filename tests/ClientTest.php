@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Tests\ClientTest;
 
+use const Rudashi\GusApi\Tests\API_KEY;
+
 use PHPUnit\Framework\TestCase;
 use Rudashi\GusApi\Enums\CompanyType;
 use Rudashi\GusApi\Enums\GetValue;
@@ -16,19 +18,17 @@ use Rudashi\GusApi\Requests\LogoutRequest;
 use Rudashi\GusApi\Requests\SearchDataRequest;
 use Rudashi\GusApi\Responses\Collection;
 use Rudashi\GusApi\Services\CompanyModel;
-use Rudashi\GusApi\Services\FullReport\LocalResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyPartnersResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyPKDResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyTypeResponse;
+use Rudashi\GusApi\Services\FullReport\LocalResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyPKDResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyResponse;
 use Rudashi\GusApi\Services\FullReport\PersonResponse;
 use Rudashi\GusApi\Services\SearchParameters;
 
 use function Rudashi\GusApi\Tests\client;
-
-use const Rudashi\GusApi\Tests\API_KEY;
 
 uses(TestCase::class);
 
@@ -169,10 +169,12 @@ it('throws an Exception when NIP business entity not exists', function () {
     $client = client();
     $client->login(new LoginRequest(API_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            nip: '5561007',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                nip: '5561007',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -182,10 +184,12 @@ it('throws an Exception when NIP business entity not exists', function () {
 it('throws an Exception when not logged while searching entity by NIP', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            nip: '5561007',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                nip: '5561007',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -212,10 +216,12 @@ it('throws an Exception when KRS business entity not exists', function () {
     $client = client();
     $client->login(new LoginRequest(API_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            krs: '00496427',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                krs: '00496427',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -225,10 +231,12 @@ it('throws an Exception when KRS business entity not exists', function () {
 it('throws an Exception when not logged while searching entity by KRS', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            krs: '0000496427',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                krs: '0000496427',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -256,10 +264,12 @@ it('throws an Exception when REGON business entity not exists', function () {
     $client = client();
     $client->login(new LoginRequest(API_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            regon: '91187826',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                regon: '91187826',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -269,10 +279,12 @@ it('throws an Exception when REGON business entity not exists', function () {
 it('throws an Exception when not logged while searching entity by REGON', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            regon: '091187826',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                regon: '091187826',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -338,10 +350,12 @@ it('throws an Exception when not found any NIP', function () {
 it('throws an Exception when not logged while searching multiple entities by NIP', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            nipy: '556100761,526003023',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                nipy: '556100761,526003023',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -407,10 +421,12 @@ it('throws an Exception when not found any KRS', function () {
 it('throws an Exception when not logged while searching multiple entities by KRS', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            krsy: '000496427,000149371',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                krsy: '000496427,000149371',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -476,10 +492,12 @@ it('throws an Exception when not found any REGON', function () {
 it('throws an Exception when not logged while searching multiple entities by REGON', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            regony: '09118726,1042147',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                regony: '09118726,1042147',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -507,10 +525,12 @@ it('throws an Exception when REGON_14 business entity not exists', function () {
     $client = client();
     $client->login(new LoginRequest(API_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            regony14: '000002300041',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                regony14: '000002300041',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -520,10 +540,12 @@ it('throws an Exception when REGON_14 business entity not exists', function () {
 it('throws an Exception when not logged while searching multiple entities by REGON_14', function () {
     $client = client();
 
-    expect(fn () => $client->searchEntity(
-        new SearchDataRequest(new SearchParameters(
-            regony14: '000002300041',
-        )))->result()
+    expect(
+        fn () => $client->searchEntity(
+            new SearchDataRequest(new SearchParameters(
+                regony14: '000002300041',
+            ))
+        )->result()
     )->toThrow(
         NotFoundEntity::class,
         'Entity not found.'
@@ -628,11 +650,12 @@ it('can get person PKD list by `PERSON_PKD`', function () {
     expect($response->result())
         ->toBeInstanceOf(Collection::class)
         ->toHaveCount(50)
-        ->each(fn ($item) => $item
-            ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-            ->pkdKod->not->toBe('')
-            ->pkdNazwa->not->toBe('')
-            ->pkdPrzewazajace->not->toBe('')
+        ->each(
+            fn ($item) => $item
+                ->toBeInstanceOf(PersonCompanyPKDResponse::class)
+                ->pkdKod->not->toBe('')
+                ->pkdNazwa->not->toBe('')
+                ->pkdPrzewazajace->not->toBe('')
         );
 });
 
@@ -682,12 +705,13 @@ it('can get local person PKD list by `LOCAL_PERSON_PKD`', function () {
     expect($response->result())
         ->toBeInstanceOf(Collection::class)
         ->toHaveCount(2)
-        ->each(fn ($item) => $item
-            ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-            ->pkdKod->not->toBe('')
-            ->pkdNazwa->not->toBe('')
-            ->pkdPrzewazajace->not->toBe('')
-            ->silosSymbol->not->toBe('')
+        ->each(
+            fn ($item) => $item
+                ->toBeInstanceOf(PersonCompanyPKDResponse::class)
+                ->pkdKod->not->toBe('')
+                ->pkdNazwa->not->toBe('')
+                ->pkdPrzewazajace->not->toBe('')
+                ->silosSymbol->not->toBe('')
         );
 });
 
@@ -704,7 +728,7 @@ it('can get report about company by `COMPANY`', function () {
 
     expect($response->result())
         ->toBeInstanceOf(CompanyResponse::class)
-        ->toHaveProperty('praw_nip','5561007611');
+        ->toHaveProperty('praw_nip', '5561007611');
 });
 
 it('can get company PKD list by `COMPANY_PKD`', function () {
@@ -721,11 +745,12 @@ it('can get company PKD list by `COMPANY_PKD`', function () {
     expect($response->result())
         ->toBeInstanceOf(Collection::class)
         ->toHaveCount(38)
-        ->each(fn ($item) => $item
-            ->toBeInstanceOf(CompanyPKDResponse::class)
-            ->pkdKod->not->toBe('')
-            ->pkdNazwa->not->toBe('')
-            ->pkdPrzewazajace->not->toBe('')
+        ->each(
+            fn ($item) => $item
+                ->toBeInstanceOf(CompanyPKDResponse::class)
+                ->pkdKod->not->toBe('')
+                ->pkdNazwa->not->toBe('')
+                ->pkdPrzewazajace->not->toBe('')
         );
 });
 
@@ -809,11 +834,12 @@ it('can get entity PKD list by `LOCAL_COMPANY_PKD`', function () {
     expect($response->result())
         ->toBeInstanceOf(Collection::class)
         ->toHaveCount(1)
-        ->each(fn ($item) => $item
-            ->toBeInstanceOf(CompanyPKDResponse::class)
-            ->pkdKod->not->toBe('')
-            ->pkdNazwa->not->toBe('')
-            ->pkdPrzewazajace->not->toBe('')
+        ->each(
+            fn ($item) => $item
+                ->toBeInstanceOf(CompanyPKDResponse::class)
+                ->pkdKod->not->toBe('')
+                ->pkdNazwa->not->toBe('')
+                ->pkdPrzewazajace->not->toBe('')
         );
 });
 
