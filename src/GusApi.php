@@ -109,7 +109,7 @@ class GusApi
         $response = $this->client->login(new LoginRequest($this->key));
 
         if ($response->isAuthorized() === false) {
-            throw new InvalidUserKey(sprintf("User key %s is invalid", $this->key));
+            throw new InvalidUserKey(sprintf('User key %s is invalid', $this->key));
         }
 
         $this->setSessionId($response->result());
@@ -200,7 +200,7 @@ class GusApi
         }
     }
 
-    private function limit(array $values): static
+    protected function limit(array $values): static
     {
         $count = count($values);
 
@@ -208,8 +208,8 @@ class GusApi
             throw new LimitedIdentifiers('Missing identifiers.');
         }
 
-        if ($count > static::LIMIT_IDS) {
-            throw new LimitedIdentifiers(sprintf("Too many identifiers. The maximum allowed is %d.", static::LIMIT_IDS));
+        if ($count > self::LIMIT_IDS) {
+            throw new LimitedIdentifiers(sprintf('Too many identifiers. The maximum allowed is %d.', self::LIMIT_IDS));
         }
 
         return $this;

@@ -45,7 +45,7 @@ class Client
         }
 
         $this->soap = Soap::for(
-            name: static::SERVICE,
+            name: self::SERVICE,
             service: new SoapService(
                 wsdl: $this->environment->wsdlUrl(),
                 location: $this->environment->serviceUrl(),
@@ -69,10 +69,10 @@ class Client
         $response = $this->call(Action::LOGIN, $request);
 
         if ($response->isAuthorized()) {
-            $this->soap->editService(static::SERVICE, static function (SoapService $service) use ($response) {
+            $this->soap->editService(self::SERVICE, static function (SoapService $service) use ($response) {
                 $service->setContextOptions([
                     'http' => [
-                        'header' => 'sid: ' . $response->result()
+                        'header' => 'sid: ' . $response->result(),
                     ],
                 ]);
             });
@@ -101,10 +101,10 @@ class Client
         return $this->call(Action::FULL_REPORT, $request)->parseToXml($request->report());
     }
 
-    private function call(Action $action, RequestInterface $request)
+    protected function call(Action $action, RequestInterface $request)
     {
         return $this->soap
-            ->service(static::SERVICE)
+            ->service(self::SERVICE)
             ->addHeader(
                 name: 'To',
                 namespace: 'http://www.w3.org/2005/08/addressing',

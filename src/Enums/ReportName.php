@@ -95,7 +95,7 @@ enum ReportName: string
             self::COMPANY_TYPE => CompanyTypeResponse::of((string) $response['dane']->Typ),
             self::LOCAL_COMPANY => LocalResponse::forCompany(...self::mapToStringValue((array) $response['dane'])),
             self::LOCAL_COMPANY_PKD => new Collection([
-                CompanyPKDResponse::forLocalCompany(...self::mapToStringValue((array) $response['dane']))
+                CompanyPKDResponse::forLocalCompany(...self::mapToStringValue((array) $response['dane'])),
             ]),
         };
     }

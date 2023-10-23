@@ -44,7 +44,6 @@ class SoapService
         return $this;
     }
 
-
     public function run(SoapCallInterface $action, array $data, array $options = [], array $headers = [])
     {
         if ($this->client === null) {

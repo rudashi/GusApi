@@ -14,7 +14,7 @@ use Rudashi\GusApi\Exceptions\SoapServiceNotExists;
 class Soap
 {
     public function __construct(
-        /** @var array|SoapService[] */
+        /** @var array<SoapService> */
         protected array $services = [],
     ) {
     }
@@ -32,7 +32,7 @@ class Soap
             return $this;
         }
 
-        throw new SoapServiceAlreadyExists(sprintf("Service %s already exists.", $name));
+        throw new SoapServiceAlreadyExists(sprintf('Service %s already exists.', $name));
     }
 
     public function editService(string $name, Closure $closure): Soap
@@ -50,7 +50,7 @@ class Soap
     public function service(string $name): SoapService
     {
         if ($this->hasService($name) === false) {
-            throw new SoapServiceNotExists(sprintf("Service %s not exists.", $name));
+            throw new SoapServiceNotExists(sprintf('Service %s not exists.', $name));
         }
 
         return $this->services[$name];

@@ -58,7 +58,7 @@ class SearchDataResponse implements ResponseInterface
         }
 
         return new Collection([
-            $this->toCompanyModel((array) $this->xml->dane)
+            $this->toCompanyModel((array) $this->xml->dane),
         ]);
     }
 
