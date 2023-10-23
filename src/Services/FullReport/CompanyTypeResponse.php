@@ -7,6 +7,9 @@ namespace Rudashi\GusApi\Services\FullReport;
 use Rudashi\GusApi\Enums\CompanyType;
 use Rudashi\GusApi\Responses\ResponseInterface;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class CompanyTypeResponse implements ResponseInterface
 {
     public function __construct(

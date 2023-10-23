@@ -30,8 +30,8 @@ class SoapClient extends BaseClient
         array|null $options = null,
         string|null $location = null,
         array $headers = []
-    ): static {
-        $client = new static($wsdl, $options,);
+    ): self {
+        $client = new self($wsdl, $options,);
 
         $client->__setSoapHeaders($headers);
         $client->__setLocation($location);

@@ -20,6 +20,9 @@ use Rudashi\GusApi\Responses\SearchDataResponse;
 use Rudashi\GusApi\Services\Soap\Soap;
 use Rudashi\GusApi\Services\Soap\SoapService;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Client
 {
     public const SERVICE = 'GUS';
@@ -32,7 +35,7 @@ class Client
 
     public static function create(EnvironmentInterface $environment): static
     {
-        return (new self($environment))->build();
+        return (new static($environment))->build();
     }
 
     public function build(): static
@@ -42,7 +45,7 @@ class Client
         }
 
         $this->soap = Soap::for(
-            name: self::SERVICE,
+            name: static::SERVICE,
             service: new SoapService(
                 wsdl: $this->environment->wsdlUrl(),
                 location: $this->environment->serviceUrl(),
@@ -66,7 +69,7 @@ class Client
         $response = $this->call(Action::LOGIN, $request);
 
         if ($response->isAuthorized()) {
-            $this->soap->editService(self::SERVICE, static function (SoapService $service) use ($response) {
+            $this->soap->editService(static::SERVICE, static function (SoapService $service) use ($response) {
                 $service->setContextOptions([
                     'http' => [
                         'header' => 'sid: ' . $response->result()
@@ -101,7 +104,7 @@ class Client
     private function call(Action $action, RequestInterface $request)
     {
         return $this->soap
-            ->service(self::SERVICE)
+            ->service(static::SERVICE)
             ->addHeader(
                 name: 'To',
                 namespace: 'http://www.w3.org/2005/08/addressing',

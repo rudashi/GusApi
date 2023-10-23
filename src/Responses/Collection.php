@@ -10,6 +10,9 @@ use Countable;
 use IteratorAggregate;
 use Traversable;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Collection implements Countable, IteratorAggregate, ResponseInterface
 {
     public function __construct(

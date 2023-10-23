@@ -25,7 +25,7 @@ use Rudashi\GusApi\Services\SearchParameters;
 
 class GusApi
 {
-    private const LIMIT_IDS = 20;
+    protected const LIMIT_IDS = 20;
     private readonly Client $client;
     private string $sessionId;
 
@@ -95,6 +95,7 @@ class GusApi
         )->result()) {
             '0' => false,
             '1' => true,
+            default => throw new IncorrectDataStatus('Invalid session status.'),
         };
     }
 
@@ -207,8 +208,8 @@ class GusApi
             throw new LimitedIdentifiers('Missing identifiers.');
         }
 
-        if ($count > self::LIMIT_IDS) {
-            throw new LimitedIdentifiers(sprintf("Too many identifiers. The maximum allowed is %d.", self::LIMIT_IDS));
+        if ($count > static::LIMIT_IDS) {
+            throw new LimitedIdentifiers(sprintf("Too many identifiers. The maximum allowed is %d.", static::LIMIT_IDS));
         }
 
         return $this;

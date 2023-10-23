@@ -6,6 +6,9 @@ namespace Rudashi\GusApi\Services\FullReport;
 
 use Rudashi\GusApi\Responses\ResponseInterface;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class PersonCompanyPKDResponse implements ResponseInterface
 {
     public function __construct(

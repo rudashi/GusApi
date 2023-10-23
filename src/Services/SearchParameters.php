@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class SearchParameters
 {
     public function __construct(

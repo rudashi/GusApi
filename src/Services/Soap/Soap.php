@@ -8,12 +8,16 @@ use Closure;
 use Rudashi\GusApi\Exceptions\SoapServiceAlreadyExists;
 use Rudashi\GusApi\Exceptions\SoapServiceNotExists;
 
+/**
+ * @phpstan-consistent-constructor
+ */
 class Soap
 {
-    /**
-     * @var array|SoapService[]
-     */
-    protected array $services = [];
+    public function __construct(
+        /** @var array|SoapService[] */
+        protected array $services = [],
+    ) {
+    }
 
     public static function for(string $name, SoapService $service): static
     {
