@@ -6,11 +6,12 @@ namespace Rudashi\GusApi\Responses;
 
 use Exception;
 use InvalidArgumentException;
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\ReportName;
 use Rudashi\GusApi\Exceptions\NotFoundEntity;
 use SimpleXMLElement;
 
-class FullReportResponse implements ResponseInterface
+class FullReportResponse implements Response
 {
     public function __construct(
         private string $DanePobierzPelnyRaportResult,
@@ -36,7 +37,7 @@ class FullReportResponse implements ResponseInterface
         return $this;
     }
 
-    public function result(): ResponseInterface
+    public function result(): Response
     {
         if ($this->isError($this->xml->dane)) {
             throw new NotFoundEntity((string) $this->xml->dane->ErrorMessagePl);

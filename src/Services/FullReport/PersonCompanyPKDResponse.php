@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services\FullReport;
 
-use Rudashi\GusApi\Responses\ResponseInterface;
+use Rudashi\GusApi\Contracts\Response;
 
 /**
  * @phpstan-consistent-constructor
  */
-class PersonCompanyPKDResponse implements ResponseInterface
+class PersonCompanyPKDResponse implements Response
 {
     public function __construct(
         public readonly string $pkdKod,

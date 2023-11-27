@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rudashi\GusApi\Requests;
+namespace Rudashi\GusApi\Contracts;
 
-interface RequestInterface
+interface Request
 {
     public function toArray(): array;
 }

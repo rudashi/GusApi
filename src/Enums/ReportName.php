@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Enums;
 
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Responses\Collection;
-use Rudashi\GusApi\Responses\ResponseInterface;
 use Rudashi\GusApi\Services\FullReport\CompanyPartnersResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyPKDResponse;
 use Rudashi\GusApi\Services\FullReport\CompanyResponse;
@@ -61,7 +61,7 @@ enum ReportName: string
         };
     }
 
-    public function toResponse(array $response): ResponseInterface
+    public function toResponse(array $response): Response
     {
         return match ($this) {
             self::PERSON_GENERAL => new PersonResponse(...self::mapToStringValue((array) $response['dane'])),

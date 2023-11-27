@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services\FullReport;
 
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\CompanyType;
-use Rudashi\GusApi\Responses\ResponseInterface;
 
 /**
  * @phpstan-consistent-constructor
  */
-class CompanyTypeResponse implements ResponseInterface
+class CompanyTypeResponse implements Response
 {
     public function __construct(
         private readonly CompanyType $type,

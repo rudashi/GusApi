@@ -6,11 +6,12 @@ namespace Rudashi\GusApi\Responses;
 
 use Exception;
 use InvalidArgumentException;
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Exceptions\NotFoundEntity;
 use Rudashi\GusApi\Services\CompanyModel;
 use SimpleXMLElement;
 
-class SearchDataResponse implements ResponseInterface
+class SearchDataResponse implements Response
 {
     private bool $collect = false;
 

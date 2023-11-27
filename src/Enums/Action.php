@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Enums;
 
+use Rudashi\GusApi\Contracts\SoapCall;
 use Rudashi\GusApi\Services\FullReport;
 use Rudashi\GusApi\Services\GetValue;
 use Rudashi\GusApi\Services\Login;
 use Rudashi\GusApi\Services\Logout;
 use Rudashi\GusApi\Services\SearchData;
-use Rudashi\GusApi\Services\Soap\SoapCallInterface;
 
 enum Action: string
 {
@@ -20,7 +20,7 @@ enum Action: string
     case FULL_REPORT = 'DanePobierzPelnyRaport';
     //    case BULK_REPORT = 'DanePobierzRaportZbiorczy';
 
-    public function service(): SoapCallInterface
+    public function service(): SoapCall
     {
         return match ($this) {
             self::LOGIN => new Login($this),

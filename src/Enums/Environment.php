@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Enums;
 
+use Rudashi\GusApi\Contracts\Environment;
 use Rudashi\GusApi\Environment\Development;
-use Rudashi\GusApi\Environment\EnvironmentInterface;
 use Rudashi\GusApi\Environment\Production;
 
 enum Environment: string
@@ -13,7 +13,7 @@ enum Environment: string
     case DEV = 'dev';
     case PROD = 'prod';
 
-    public function service(): EnvironmentInterface
+    public function service(): Environment
     {
         return match ($this) {
             self::DEV => new Development(),

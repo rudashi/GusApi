@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rudashi\GusApi;
 
 use DateTime;
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\Environment;
 use Rudashi\GusApi\Enums\GetValue;
 use Rudashi\GusApi\Enums\ReportName;
@@ -20,7 +21,6 @@ use Rudashi\GusApi\Requests\LogoutRequest;
 use Rudashi\GusApi\Requests\SearchDataRequest;
 use Rudashi\GusApi\Responses\Collection;
 use Rudashi\GusApi\Responses\CompanyResponse;
-use Rudashi\GusApi\Responses\ResponseInterface;
 use Rudashi\GusApi\Services\SearchParameters;
 
 class GusApi
@@ -181,7 +181,7 @@ class GusApi
         )->result();
     }
 
-    public function getFullReport(string $regon): ResponseInterface
+    public function getFullReport(string $regon): Response
     {
         try {
             return $this->authorize()->client->getFullReport(

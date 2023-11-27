@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Environment;
 
-class Production implements EnvironmentInterface
+use Rudashi\GusApi\Contracts\Environment;
+
+class Production implements Environment
 {
     public function serviceUrl(): string
     {

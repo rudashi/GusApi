@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services\FullReport;
 
-use Rudashi\GusApi\Responses\ResponseInterface;
+use Rudashi\GusApi\Contracts\Response;
 
-class PersonCompanyResponse implements ResponseInterface
+class PersonCompanyResponse implements Response
 {
     public function __construct(
         public readonly string $fiz_regon9,

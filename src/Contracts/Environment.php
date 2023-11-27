@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rudashi\GusApi\Environment;
+namespace Rudashi\GusApi\Contracts;
 
-interface EnvironmentInterface
+interface Environment
 {
     public function serviceUrl(): string;
 

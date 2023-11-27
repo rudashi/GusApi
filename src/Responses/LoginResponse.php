@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Responses;
 
-class LoginResponse implements ResponseInterface
+use Rudashi\GusApi\Contracts\Response;
+
+class LoginResponse implements Response
 {
     public function __construct(
         private readonly string $ZalogujResult

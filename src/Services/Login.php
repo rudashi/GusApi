@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services;
 
+use Rudashi\GusApi\Contracts\SoapCall;
 use Rudashi\GusApi\Enums\Action;
-use Rudashi\GusApi\Services\Soap\SoapCallInterface;
 use SoapHeader;
 
-class Login implements SoapCallInterface
+class Login implements SoapCall
 {
     public function __construct(
         private readonly Action $action,

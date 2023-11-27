@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services\Soap;
 
+use Rudashi\GusApi\Contracts\SoapCall;
 use SoapHeader;
 
 class SoapService
@@ -44,7 +45,7 @@ class SoapService
         return $this;
     }
 
-    public function run(SoapCallInterface $action, array $data, array $options = [], array $headers = [])
+    public function run(SoapCall $action, array $data, array $options = [], array $headers = [])
     {
         if ($this->client === null) {
             $this->addClient(SoapClient::new(

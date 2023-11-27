@@ -8,12 +8,13 @@ use ArrayIterator;
 use Closure;
 use Countable;
 use IteratorAggregate;
+use Rudashi\GusApi\Contracts\Response;
 use Traversable;
 
 /**
  * @phpstan-consistent-constructor
  */
-class Collection implements Countable, IteratorAggregate, ResponseInterface
+class Collection implements Countable, IteratorAggregate, Response
 {
     public function __construct(
         public array $items

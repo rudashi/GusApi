@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi;
 
+use Rudashi\GusApi\Contracts\Environment;
+use Rudashi\GusApi\Contracts\Request;
 use Rudashi\GusApi\Enums\Action;
-use Rudashi\GusApi\Environment\EnvironmentInterface;
 use Rudashi\GusApi\Requests\FullReportRequest;
 use Rudashi\GusApi\Requests\GetValueRequest;
 use Rudashi\GusApi\Requests\LoginRequest;
 use Rudashi\GusApi\Requests\LogoutRequest;
-use Rudashi\GusApi\Requests\RequestInterface;
 use Rudashi\GusApi\Requests\SearchDataRequest;
 use Rudashi\GusApi\Responses\FullReportResponse;
 use Rudashi\GusApi\Responses\GetValueResponse;
@@ -28,12 +28,12 @@ class Client
     public const SERVICE = 'GUS';
 
     public function __construct(
-        private readonly EnvironmentInterface $environment,
+        private readonly Environment $environment,
         private Soap|null $soap = null,
     ) {
     }
 
-    public static function create(EnvironmentInterface $environment): static
+    public static function create(Environment $environment): static
     {
         return (new static($environment))->build();
     }
@@ -101,7 +101,7 @@ class Client
         return $this->call(Action::FULL_REPORT, $request)->parseToXml($request->report());
     }
 
-    protected function call(Action $action, RequestInterface $request)
+    protected function call(Action $action, Request $request)
     {
         return $this->soap
             ->service(self::SERVICE)

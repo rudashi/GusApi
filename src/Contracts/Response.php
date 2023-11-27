@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rudashi\GusApi\Responses;
+namespace Rudashi\GusApi\Contracts;
 
-interface ResponseInterface
+interface Response
 {
     public function result();
 }

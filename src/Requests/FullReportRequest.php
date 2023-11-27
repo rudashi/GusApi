@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Requests;
 
+use Rudashi\GusApi\Contracts\Request;
 use Rudashi\GusApi\Enums\ReportName;
 use Rudashi\GusApi\Enums\RequestParameter;
 
-class FullReportRequest implements RequestInterface
+class FullReportRequest implements Request
 {
     public function __construct(
         private readonly string $regon,

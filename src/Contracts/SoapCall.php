@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rudashi\GusApi\Services\Soap;
+namespace Rudashi\GusApi\Contracts;
 
-interface SoapCallInterface
+interface SoapCall
 {
     public function functionName(): string;
 

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Responses;
 
-class LogoutResponse implements ResponseInterface
+use Rudashi\GusApi\Contracts\Response;
+
+class LogoutResponse implements Response
 {
     public function __construct(
         private readonly bool $WylogujResult
