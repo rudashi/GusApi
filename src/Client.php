@@ -69,13 +69,14 @@ class Client
         $response = $this->call(Action::LOGIN, $request);
 
         if ($response->isAuthorized()) {
-            $this->soap->editService(self::SERVICE, static function (SoapService $service) use ($response) {
-                $service->setContextOptions([
+            $this->soap->editService(
+                name: self::SERVICE,
+                closure: static fn (SoapService $service) => $service->setContextOptions([
                     'http' => [
                         'header' => 'sid: ' . $response->result(),
                     ],
-                ]);
-            });
+                ])
+            );
         }
 
         return $response;

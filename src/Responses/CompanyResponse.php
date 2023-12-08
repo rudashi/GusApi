@@ -16,6 +16,6 @@ class CompanyResponse implements Response
 
     public function result(): array
     {
-        return (array) $this->company;
+        return $this->company->toArray();
     }
 }

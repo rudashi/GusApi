@@ -30,4 +30,9 @@ class CompanyModel
     ) {
         $this->Typ = CompanyType::from($Typ);
     }
+
+    public function toArray(): array
+    {
+        return (array) $this;
+    }
 }

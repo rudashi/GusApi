@@ -64,28 +64,28 @@ enum ReportName: string
     public function toResponse(array $response): Response
     {
         return match ($this) {
-            self::PERSON_GENERAL => new PersonResponse(...self::mapToStringValue((array) $response['dane'])),
+            self::PERSON_GENERAL => new PersonResponse(...self::map((array) $response['dane'])),
             self::PERSON_CEIDG,
             self::PERSON_AGRO,
             self::PERSON_OTHER,
-            self::PERSON_DELETED => new PersonCompanyResponse(...self::mapToStringValue((array) $response['dane'])),
+            self::PERSON_DELETED => new PersonCompanyResponse(...self::map((array) $response['dane'])),
             self::PERSON_PKD => Collection::each(
-                static fn ($item) => PersonCompanyPKDResponse::forPerson(...self::mapToStringValue((array) $item)),
+                static fn ($item) => PersonCompanyPKDResponse::forPerson(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::PERSON_LOCALS,
-            self::LOCAL_PERSON => LocalResponse::forPerson(...self::mapToStringValue((array) $response['dane'])),
+            self::LOCAL_PERSON => LocalResponse::forPerson(...self::map((array) $response['dane'])),
             self::LOCAL_PERSON_PKD => Collection::each(
-                static fn ($item) => PersonCompanyPKDResponse::forLocal(...self::mapToStringValue((array) $item)),
+                static fn ($item) => PersonCompanyPKDResponse::forLocal(...self::map((array) $item)),
                 $response['dane'],
             ),
-            self::COMPANY => new CompanyResponse(...self::mapToStringValue((array) $response['dane'])),
+            self::COMPANY => new CompanyResponse(...self::map((array) $response['dane'])),
             self::COMPANY_PKD => Collection::each(
-                static fn ($item) => CompanyPKDResponse::forCompany(...self::mapToStringValue((array) $item)),
+                static fn ($item) => CompanyPKDResponse::forCompany(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::COMPANY_LOCALS => Collection::each(
-                static fn ($item) => LocalResponse::forCompany(...self::mapToStringValue((array) $item)),
+                static fn ($item) => LocalResponse::forCompany(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::COMPANY_PARTNERS => Collection::each(
@@ -93,14 +93,14 @@ enum ReportName: string
                 $response['dane'],
             ),
             self::COMPANY_TYPE => CompanyTypeResponse::of((string) $response['dane']->Typ),
-            self::LOCAL_COMPANY => LocalResponse::forCompany(...self::mapToStringValue((array) $response['dane'])),
+            self::LOCAL_COMPANY => LocalResponse::forCompany(...self::map((array) $response['dane'])),
             self::LOCAL_COMPANY_PKD => new Collection([
-                CompanyPKDResponse::forLocalCompany(...self::mapToStringValue((array) $response['dane'])),
+                CompanyPKDResponse::forLocalCompany(...self::map((array) $response['dane'])),
             ]),
         };
     }
 
-    private static function mapToStringValue(array $items): array
+    private static function map(array $items): array
     {
         return array_map(static fn ($value) => (string) $value, $items);
     }
