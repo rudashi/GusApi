@@ -14,8 +14,8 @@ class CompanyResponse implements Response
     ) {
     }
 
-    public function result(): array
+    public function result(): CompanyModel
     {
-        return $this->company->toArray();
+        return $this->company;
     }
 }

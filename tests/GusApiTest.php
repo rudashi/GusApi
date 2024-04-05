@@ -12,6 +12,7 @@ use Rudashi\GusApi\Exceptions\InvalidUserKey;
 use Rudashi\GusApi\Exceptions\LimitedIdentifiers;
 use Rudashi\GusApi\Exceptions\MissingSession;
 use Rudashi\GusApi\Exceptions\NotFoundEntity;
+use Rudashi\GusApi\Services\CompanyModel;
 use Rudashi\GusApi\Services\FullReport\CompanyResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyResponse;
 
@@ -153,7 +154,7 @@ it('returns entity by NIP', function () {
     $api = api()->login()->getByNip('5561007611');
 
     expect($api->result())
-        ->toBeArray()
+        ->toBeInstanceOf(CompanyModel::class)
         ->toMatchArray([
             'Nip' => '5561007611',
             'Typ' => CompanyType::COMPANY,
@@ -180,7 +181,7 @@ it('returns entity by KRS', function () {
     $api = api()->login()->getByKrs('0000496427');
 
     expect($api->result())
-        ->toBeArray()
+        ->toBeInstanceOf(CompanyModel::class)
         ->toMatchArray([
             'Nip' => '5561007611',
             'Typ' => CompanyType::COMPANY,
@@ -207,7 +208,7 @@ it('returns entity by REGON', function () {
     $api = api()->login()->getByRegon('091187826');
 
     expect($api->result())
-        ->toBeArray()
+        ->toBeInstanceOf(CompanyModel::class)
         ->toMatchArray([
             'Nip' => '5561007611',
             'Regon' => '091187826',
