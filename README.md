@@ -16,7 +16,8 @@ composer require rudashi/gusapi
 ## Supported Versions
 | Version | PHP version | BIR service version               |
 |---------|-------------|-----------------------------------|
-| 1.x     | ^8.1        | BIR1.1 (available since May 2019) |
+| 1.0.2   | ^8.2        | BIR1.1 (available since May 2019) |
+| 1.0.1   | ^8.1        | BIR1.1 (available since May 2019) |
 | ---     | ---         | BIR1 (available from 2015)        |
 
 
