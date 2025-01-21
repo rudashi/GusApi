@@ -855,6 +855,6 @@ it('throws an Exception when not found entity report', function () {
     )->result())
         ->toThrow(
             NotFoundEntity::class,
-            'Entity not found.'
+            'Nie znaleziono wpisu dla podanych kryteriów wyszukiwania.'
         );
 });

@@ -20,9 +20,6 @@ use Rudashi\GusApi\Responses\SearchDataResponse;
 use Rudashi\GusApi\Services\Soap\Soap;
 use Rudashi\GusApi\Services\Soap\SoapService;
 
-/**
- * @phpstan-consistent-constructor
- */
 class Client
 {
     public const SERVICE = 'GUS';
@@ -33,9 +30,9 @@ class Client
     ) {
     }
 
-    public static function create(Environment $environment): static
+    public static function create(Environment $environment): self
     {
-        return (new static($environment))->build();
+        return (new self($environment))->build();
     }
 
     public function build(): static
