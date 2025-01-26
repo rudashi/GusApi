@@ -855,6 +855,6 @@ it('throws an Exception when not found entity report', function () {
     )->result())
         ->toThrow(
             NotFoundEntity::class,
-            'Nie znaleziono wpisu dla podanych kryteriów wyszukiwania.'
+            'Nieprawidłowa lub pusta nazwa raportu lub nieprawidłowy identyfikator.'
         );
 });
