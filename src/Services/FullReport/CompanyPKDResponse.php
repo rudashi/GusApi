@@ -6,18 +6,18 @@ namespace Rudashi\GusApi\Services\FullReport;
 
 use Rudashi\GusApi\Contracts\Response;
 
-/**
- * @phpstan-consistent-constructor
- */
-class CompanyPKDResponse implements Response
+readonly class CompanyPKDResponse implements Response
 {
     public function __construct(
-        public readonly string $pkdKod,
-        public readonly string $pkdNazwa,
-        public readonly string $pkdPrzewazajace,
+        public string $pkdKod,
+        public string $pkdNazwa,
+        public string $pkdPrzewazajace,
     ) {
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function result(): array
     {
         return (array) $this;
@@ -27,8 +27,8 @@ class CompanyPKDResponse implements Response
         string $praw_pkdKod,
         string $praw_pkdNazwa,
         string $praw_pkdPrzewazajace,
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             pkdKod: $praw_pkdKod,
             pkdNazwa: $praw_pkdNazwa,
             pkdPrzewazajace: $praw_pkdPrzewazajace,
@@ -39,8 +39,8 @@ class CompanyPKDResponse implements Response
         string $lokpraw_pkdKod,
         string $lokpraw_pkdNazwa,
         string $lokpraw_pkdPrzewazajace,
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             pkdKod: $lokpraw_pkdKod,
             pkdNazwa: $lokpraw_pkdNazwa,
             pkdPrzewazajace: $lokpraw_pkdPrzewazajace,

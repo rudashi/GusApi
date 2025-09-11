@@ -11,6 +11,9 @@ class SoapService
 {
     protected string $wsdl;
     protected SoapClient|null $client = null;
+    /**
+     * @var array<string, mixed>
+     */
     protected array $options = [
         'soap_version' => SOAP_1_2,
         'trace' => true,
@@ -21,9 +24,15 @@ class SoapService
         'stream_context' => null,
         'classmap' => [],
     ];
+    /**
+     * @var array<string, \SoapHeader>
+     */
     protected array $headers = [];
     protected string $location;
 
+    /**
+     * @param array<string, class-string<\Rudashi\GusApi\Contracts\Response>> $classMap
+     */
     public function __construct(string $wsdl, string $location, array $classMap)
     {
         $this->options['classmap'] = $classMap;
@@ -45,7 +54,12 @@ class SoapService
         return $this;
     }
 
-    public function run(SoapCall $action, array $data, array $options = [], array $headers = [])
+    /**
+     * @param array<string> $data
+     * @param array<string, mixed> $options
+     * @param array<string, \SoapHeader> $headers
+     */
+    public function run(SoapCall $action, array $data, array $options = [], array $headers = []): mixed
     {
         if ($this->client === null) {
             $this->addClient(SoapClient::new(
@@ -56,7 +70,7 @@ class SoapService
         }
 
         return $this->client->call(
-            function_name: $action->functionName(),
+            name: $action->functionName(),
             arguments: $data,
             options: $options,
             input_headers: [
@@ -67,6 +81,9 @@ class SoapService
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getOptions(): array
     {
         $this->options['stream_context'] = stream_context_create();
@@ -74,6 +91,9 @@ class SoapService
         return $this->options;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function setContextOptions(array $options): static
     {
         $this->options['stream_context'] = stream_context_set_option($this->options['stream_context'], $options);

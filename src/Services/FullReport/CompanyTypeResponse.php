@@ -7,13 +7,10 @@ namespace Rudashi\GusApi\Services\FullReport;
 use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\CompanyType;
 
-/**
- * @phpstan-consistent-constructor
- */
-class CompanyTypeResponse implements Response
+readonly class CompanyTypeResponse implements Response
 {
     public function __construct(
-        private readonly CompanyType $type,
+        private CompanyType $type,
     ) {
     }
 
@@ -22,9 +19,9 @@ class CompanyTypeResponse implements Response
         return $this->type;
     }
 
-    public static function of(string $value): static
+    public static function of(string $value): self
     {
-        return new static(
+        return new self(
             CompanyType::from($value)
         );
     }

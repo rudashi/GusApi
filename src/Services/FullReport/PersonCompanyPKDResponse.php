@@ -6,21 +6,21 @@ namespace Rudashi\GusApi\Services\FullReport;
 
 use Rudashi\GusApi\Contracts\Response;
 
-/**
- * @phpstan-consistent-constructor
- */
-class PersonCompanyPKDResponse implements Response
+readonly class PersonCompanyPKDResponse implements Response
 {
     public function __construct(
-        public readonly string $pkdKod,
-        public readonly string $pkdNazwa,
-        public readonly string $pkdPrzewazajace,
-        public readonly string $silosSymbol,
-        public readonly string $silosId = '',
-        public readonly string $dataSkresleniaDzialalnosciZRegon = '',
+        public string $pkdKod,
+        public string $pkdNazwa,
+        public string $pkdPrzewazajace,
+        public string $silosSymbol,
+        public string $silosId = '',
+        public string $dataSkresleniaDzialalnosciZRegon = '',
     ) {
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function result(): array
     {
         return (array) $this;
@@ -33,8 +33,8 @@ class PersonCompanyPKDResponse implements Response
         string $fiz_SilosID,
         string $fiz_Silos_Symbol,
         string $fiz_dataSkresleniaDzialalnosciZRegon,
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             pkdKod: $fiz_pkd_Kod,
             pkdNazwa: $fiz_pkd_Nazwa,
             pkdPrzewazajace: $fiz_pkd_Przewazajace,
@@ -49,8 +49,8 @@ class PersonCompanyPKDResponse implements Response
         string $lokfiz_pkd_Nazwa,
         string $lokfiz_pkd_Przewazajace,
         string $lokfiz_Silos_Symbol,
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             pkdKod: $lokfiz_pkd_Kod,
             pkdNazwa: $lokfiz_pkd_Nazwa,
             pkdPrzewazajace: $lokfiz_pkd_Przewazajace,

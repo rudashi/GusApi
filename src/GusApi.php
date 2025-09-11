@@ -131,6 +131,11 @@ class GusApi
         );
     }
 
+    /**
+     * @param string[] $values
+     *
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
+     */
     public function getByKrses(array $values): Collection
     {
         return $this->limit($values)->authorize()->client->searchEntity(
@@ -148,6 +153,11 @@ class GusApi
         );
     }
 
+    /**
+     * @param string[] $values
+     *
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
+     */
     public function getByNips(array $values): Collection
     {
         return $this->limit($values)->authorize()->client->searchEntity(
@@ -165,6 +175,11 @@ class GusApi
         );
     }
 
+    /**
+     * @param string[] $values
+     *
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
+     */
     public function getByRegons(array $values): Collection
     {
         return $this->limit($values)->authorize()->client->searchEntity(
@@ -173,6 +188,11 @@ class GusApi
         )->result();
     }
 
+    /**
+     * @param string[] $values
+     *
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
+     */
     public function getByRegons14(array $values): Collection
     {
         return $this->limit($values)->authorize()->client->searchEntity(
@@ -200,6 +220,9 @@ class GusApi
         }
     }
 
+    /**
+     * @param string[] $values
+     */
     protected function limit(array $values): static
     {
         $count = count($values);

@@ -6,5 +6,5 @@ namespace Rudashi\GusApi\Contracts;
 
 interface Response
 {
-    public function result();
+    public function result(): mixed;
 }

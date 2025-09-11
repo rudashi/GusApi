@@ -9,6 +9,9 @@ use SoapFault;
 
 class SoapClient extends BaseClient
 {
+    /**
+     * @throws \SoapFault
+     */
     public function __doRequest(
         string $request,
         string $location,
@@ -25,27 +28,27 @@ class SoapClient extends BaseClient
         return stristr(stristr($response, '<s:'), '</s:Envelope>', true) . '</s:Envelope>';
     }
 
-    public static function new(
-        string $wsdl,
-        array|null $options = null,
-        string|null $location = null,
-        array $headers = []
-    ): self {
+    /**
+     * @param string $wsdl
+     * @param array<string, mixed>|null $options
+     * @param string|null $location
+     */
+    public static function new(string $wsdl, ?array $options = null, ?string $location = null): self
+    {
         $client = new self($wsdl, $options);
 
-        $client->__setSoapHeaders($headers);
         $client->__setLocation($location);
 
         return $client;
     }
 
-    public function call(
-        string $function_name,
-        array $arguments,
-        array|null $options = null,
-        array|null $input_headers = null,
-        array|null &$output_headers = null
-    ) {
-        return $this->__soapCall($function_name, [$arguments], $options, $input_headers, $output_headers);
+    /**
+     * @param array<string, string> $arguments
+     * @param array<string, mixed>|null $options
+     * @param array<string, \SoapHeader>|null $input_headers
+     */
+    public function call(string $name, array $arguments, ?array $options = null, ?array $input_headers = null): mixed
+    {
+        return $this->__soapCall($name, [$arguments], $options, $input_headers);
     }
 }

@@ -6,57 +6,57 @@ namespace Rudashi\GusApi\Services\FullReport;
 
 use Rudashi\GusApi\Contracts\Response;
 
-/**
- * @phpstan-consistent-constructor
- */
-class LocalResponse implements Response
+readonly class LocalResponse implements Response
 {
     public function __construct(
-        public readonly string $regon14,
-        public readonly string $nazwa,
-        public readonly string $adSiedzKraj_Symbol,
-        public readonly string $adSiedzWojewodztwo_Symbol,
-        public readonly string $adSiedzPowiat_Symbol,
-        public readonly string $adSiedzGmina_Symbol,
-        public readonly string $adSiedzKodPocztowy,
-        public readonly string $adSiedzMiejscowoscPoczty_Symbol,
-        public readonly string $adSiedzMiejscowosc_Symbol,
-        public readonly string $adSiedzUlica_Symbol,
-        public readonly string $adSiedzNumerNieruchomosci,
-        public readonly string $adSiedzNumerLokalu,
-        public readonly string $adSiedzNietypoweMiejsceLokalizacji,
-        public readonly string $adSiedzWojewodztwo_Nazwa,
-        public readonly string $adSiedzPowiat_Nazwa,
-        public readonly string $adSiedzGmina_Nazwa,
-        public readonly string $adSiedzMiejscowosc_Nazwa,
-        public readonly string $adSiedzMiejscowoscPoczty_Nazwa,
-        public readonly string $adSiedzUlica_Nazwa,
-        public readonly string $dataPowstania,
-        public readonly string $dataRozpoczeciaDzialalnosci,
-        public readonly string $dataWpisuDoRegon,
-        public readonly string $dataZawieszeniaDzialalnosci,
-        public readonly string $dataWznowieniaDzialalnosci,
-        public readonly string $dataZakonczeniaDzialalnosci,
-        public readonly string $dataSkresleniaZRegon,
-        public readonly string $numerWrejestrzeEwidencji = '',
-        public readonly string $dataWpisuDoRejestruEwidencji = '',
-        public readonly string $adSiedzKraj_Nazwa = '',
-        public readonly string $formaFinansowania_Symbol = '',
-        public readonly string $formaFinansowania_Nazwa = '',
-        public readonly string $organRejestrowy_Symbol = '',
-        public readonly string $organRejestrowy_Nazwa = '',
-        public readonly string $rodzajRejestruEwidencji_Symbol = '',
-        public readonly string $rodzajRejestruEwidencji_Nazwa = '',
-        public readonly string $rodzajRejestru_Symbol = '',
-        public readonly string $rodzajRejestru_Nazwa = '',
-        public readonly string $dataZaistnieniaZmiany = '',
-        public readonly string $niePodjetoDzialalnosci = '',
-        public readonly string $silosID = '',
-        public readonly string $silos_Symbol = '',
-        public readonly string $silos_Nazwa = '',
+        public string $regon14,
+        public string $nazwa,
+        public string $adSiedzKraj_Symbol,
+        public string $adSiedzWojewodztwo_Symbol,
+        public string $adSiedzPowiat_Symbol,
+        public string $adSiedzGmina_Symbol,
+        public string $adSiedzKodPocztowy,
+        public string $adSiedzMiejscowoscPoczty_Symbol,
+        public string $adSiedzMiejscowosc_Symbol,
+        public string $adSiedzUlica_Symbol,
+        public string $adSiedzNumerNieruchomosci,
+        public string $adSiedzNumerLokalu,
+        public string $adSiedzNietypoweMiejsceLokalizacji,
+        public string $adSiedzWojewodztwo_Nazwa,
+        public string $adSiedzPowiat_Nazwa,
+        public string $adSiedzGmina_Nazwa,
+        public string $adSiedzMiejscowosc_Nazwa,
+        public string $adSiedzMiejscowoscPoczty_Nazwa,
+        public string $adSiedzUlica_Nazwa,
+        public string $dataPowstania,
+        public string $dataRozpoczeciaDzialalnosci,
+        public string $dataWpisuDoRegon,
+        public string $dataZawieszeniaDzialalnosci,
+        public string $dataWznowieniaDzialalnosci,
+        public string $dataZakonczeniaDzialalnosci,
+        public string $dataSkresleniaZRegon,
+        public string $numerWrejestrzeEwidencji = '',
+        public string $dataWpisuDoRejestruEwidencji = '',
+        public string $adSiedzKraj_Nazwa = '',
+        public string $formaFinansowania_Symbol = '',
+        public string $formaFinansowania_Nazwa = '',
+        public string $organRejestrowy_Symbol = '',
+        public string $organRejestrowy_Nazwa = '',
+        public string $rodzajRejestruEwidencji_Symbol = '',
+        public string $rodzajRejestruEwidencji_Nazwa = '',
+        public string $rodzajRejestru_Symbol = '',
+        public string $rodzajRejestru_Nazwa = '',
+        public string $dataZaistnieniaZmiany = '',
+        public string $niePodjetoDzialalnosci = '',
+        public string $silosID = '',
+        public string $silos_Symbol = '',
+        public string $silos_Nazwa = '',
     ) {
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function result(): array
     {
         return (array) $this;
@@ -101,8 +101,8 @@ class LocalResponse implements Response
         string $lokpraw_dataZaistnieniaZmiany = '',
         string $lokpraw_silosID = '',
         string $lokpraw_silos_Symbol = '',
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             regon14: $lokpraw_regon14,
             nazwa: $lokpraw_nazwa,
             adSiedzKraj_Symbol: $lokpraw_adSiedzKraj_Symbol,
@@ -185,8 +185,8 @@ class LocalResponse implements Response
         string $lokfiz_RodzajRejestru_Symbol = '',
         string $lokfiz_RodzajRejestru_Nazwa = '',
         string $lokfizC_NiePodjetoDzialalnosci = '',
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             regon14: $lokfiz_regon14,
             nazwa: $lokfiz_nazwa,
             adSiedzKraj_Symbol: $lokfiz_adSiedzKraj_Symbol,

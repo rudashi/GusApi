@@ -12,18 +12,30 @@ use Rudashi\GusApi\Contracts\Response;
 use Traversable;
 
 /**
- * @phpstan-consistent-constructor
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @implements \IteratorAggregate<TKey, TValue>
  */
 class Collection implements Countable, IteratorAggregate, Response
 {
+    /**
+     * @param array<TKey, TValue> $items
+     */
     public function __construct(
         public array $items
     ) {
     }
 
-    public static function each(Closure $callable, array $items): static
+    /**
+     * @param callable(string|\SimpleXMLElement): mixed $callable
+     * @param iterable<\SimpleXMLElement> $items
+     *
+     * @return self<TKey, TValue>
+     */
+    public static function each(callable $callable, iterable $items): self
     {
-        return new static(array_map($callable, $items));
+        return new self(array_map($callable, $items));
     }
 
     public function count(): int
@@ -41,6 +53,9 @@ class Collection implements Countable, IteratorAggregate, Response
         return new ArrayIterator($this->items);
     }
 
+    /**
+     * @return array<TKey, TValue>
+     */
     public function result(): array
     {
         return $this->items;

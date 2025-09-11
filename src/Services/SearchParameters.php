@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Services;
 
-/**
- * @phpstan-consistent-constructor
- */
-class SearchParameters
+readonly class SearchParameters
 {
     public function __construct(
-        private readonly string|null $krs = null,
-        private readonly string|null $krsy = null,
-        private readonly string|null $nip = null,
-        private readonly string|null $nipy = null,
-        private readonly string|null $regon = null,
-        private readonly string|null $regony14 = null,
-        private readonly string|null $regony = null,
+        private string|null $krs = null,
+        private string|null $krsy = null,
+        private string|null $nip = null,
+        private string|null $nipy = null,
+        private string|null $regon = null,
+        private string|null $regony14 = null,
+        private string|null $regony = null,
     ) {
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function toArray(): array
     {
         return array_filter([
@@ -33,41 +33,56 @@ class SearchParameters
         ], static fn ($value) => $value !== null);
     }
 
-    public static function krs(string $value): static
+    public static function krs(string $value): self
     {
-        return new static(krs: $value);
+        return new self(krs: $value);
     }
 
-    public static function krsy(string|array $value): static
+    /**
+     * @param string|string[] $value
+     */
+    public static function krsy(string|array $value): self
     {
-        return new static(krsy: static::parseValue($value));
+        return new self(krsy: static::parseValue($value));
     }
 
-    public static function nip(string $value): static
+    public static function nip(string $value): self
     {
-        return new static(nip: $value);
+        return new self(nip: $value);
     }
 
-    public static function nipy(string|array $value): static
+    /**
+     * @param string|string[] $value
+     */
+    public static function nipy(string|array $value): self
     {
-        return new static(nipy: static::parseValue($value));
+        return new self(nipy: static::parseValue($value));
     }
 
-    public static function regon(string $value): static
+    public static function regon(string $value): self
     {
-        return new static(regon: $value);
+        return new self(regon: $value);
     }
 
-    public static function regony(string|array $value): static
+    /**
+     * @param string|string[] $value
+     */
+    public static function regony(string|array $value): self
     {
-        return new static(regony: static::parseValue($value));
+        return new self(regony: static::parseValue($value));
     }
 
-    public static function regony14(string|array $value): static
+    /**
+     * @param string|string[] $value
+     */
+    public static function regony14(string|array $value): self
     {
-        return new static(regony14: static::parseValue($value));
+        return new self(regony14: static::parseValue($value));
     }
 
+    /**
+     * @param string|string[] $value
+     */
     public static function parseValue(string|array $value): string
     {
         return is_array($value) ? implode(',', $value) : $value;

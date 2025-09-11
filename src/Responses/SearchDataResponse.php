@@ -38,6 +38,9 @@ class SearchDataResponse implements Response
         return $this;
     }
 
+    /**
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>|\Rudashi\GusApi\Services\CompanyModel
+     */
     public function result(): Collection|CompanyModel
     {
         if ($this->isError($this->xml->dane)) {
@@ -49,6 +52,9 @@ class SearchDataResponse implements Response
         return $this->collect ? $collection : $collection->first();
     }
 
+    /**
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
+     */
     public function toCollection(): Collection
     {
         if ($this->xml->count() > 1) {
@@ -63,6 +69,9 @@ class SearchDataResponse implements Response
         ]);
     }
 
+    /**
+     * @return array{dane: array<int, \SimpleXMLElement>}
+     */
     private function asArray(): array
     {
         return (array) $this->xml;
@@ -73,6 +82,9 @@ class SearchDataResponse implements Response
         return property_exists($xml, 'ErrorCode');
     }
 
+    /**
+     * @param array<string, string|\SimpleXMLElement> $item
+     */
     private function toCompanyModel(array $item): CompanyModel
     {
         return new CompanyModel(...array_map(static fn ($value) => (string) $value, $item));

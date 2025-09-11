@@ -6,6 +6,7 @@ namespace Rudashi\GusApi;
 
 use Rudashi\GusApi\Contracts\Environment;
 use Rudashi\GusApi\Contracts\Request;
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\Action;
 use Rudashi\GusApi\Requests\FullReportRequest;
 use Rudashi\GusApi\Requests\GetValueRequest;
@@ -81,25 +82,40 @@ class Client
 
     public function logout(LogoutRequest $request): LogoutResponse
     {
-        return $this->call(Action::LOGOUT, $request);
+        /** @var \Rudashi\GusApi\Responses\LogoutResponse $response */
+        $response = $this->call(Action::LOGOUT, $request);
+
+        return $response;
     }
 
     public function getValue(GetValueRequest $request): GetValueResponse
     {
-        return $this->call(Action::GET_VALUE, $request);
+        /** @var \Rudashi\GusApi\Responses\GetValueResponse $response */
+        $response = $this->call(Action::GET_VALUE, $request);
+
+        return $response;
     }
 
     public function searchEntity(SearchDataRequest $request, bool $collect = false): SearchDataResponse
     {
-        return $this->call(Action::SEARCH_DATA, $request)->parseToXml($collect);
+        /** @var \Rudashi\GusApi\Responses\SearchDataResponse $response */
+        $response = $this->call(Action::SEARCH_DATA, $request);
+
+        return $response->parseToXml($collect);
     }
 
     public function getFullReport(FullReportRequest $request): FullReportResponse
     {
-        return $this->call(Action::FULL_REPORT, $request)->parseToXml($request->report());
+        /** @var \Rudashi\GusApi\Responses\FullReportResponse $response */
+        $response = $this->call(Action::FULL_REPORT, $request);
+
+        return $response->parseToXml($request->report());
     }
 
-    protected function call(Action $action, Request $request)
+    /**
+     * @throws \SoapFault
+     */
+    protected function call(Action $action, Request $request): Response
     {
         return $this->soap
             ->service(self::SERVICE)

@@ -61,6 +61,9 @@ enum ReportName: string
         };
     }
 
+    /**
+     * @param array{dane: \SimpleXMLElement|\SimpleXMLElement[]} $response
+     */
     public function toResponse(array $response): Response
     {
         return match ($this) {
@@ -100,6 +103,11 @@ enum ReportName: string
         };
     }
 
+    /**
+     * @param array<array-key, string|\SimpleXMLElement> $items
+     *
+     * @return array<string, string>
+     */
     private static function map(array $items): array
     {
         return array_map(static fn ($value) => (string) $value, $items);

@@ -8,5 +8,8 @@ interface SoapCall
 {
     public function functionName(): string;
 
+    /**
+     * @return \SoapHeader[]
+     */
     public function headers(): array;
 }

@@ -6,34 +6,37 @@ namespace Rudashi\GusApi\Services\FullReport;
 
 use Rudashi\GusApi\Contracts\Response;
 
-class PersonResponse implements Response
+readonly class PersonResponse implements Response
 {
     public function __construct(
-        public readonly string $fiz_regon9,
-        public readonly string $fiz_nip,
-        public readonly string $fiz_statusNip,
-        public readonly string $fiz_nazwisko,
-        public readonly string $fiz_imie1,
-        public readonly string $fiz_imie2,
-        public readonly string $fiz_dataWpisuPodmiotuDoRegon,
-        public readonly string $fiz_dataZaistnieniaZmiany,
-        public readonly string $fiz_dataSkresleniaPodmiotuZRegon,
-        public readonly string $fiz_podstawowaFormaPrawna_Symbol,
-        public readonly string $fiz_szczegolnaFormaPrawna_Symbol,
-        public readonly string $fiz_formaFinansowania_Symbol,
-        public readonly string $fiz_formaWlasnosci_Symbol,
-        public readonly string $fiz_podstawowaFormaPrawna_Nazwa,
-        public readonly string $fiz_szczegolnaFormaPrawna_Nazwa,
-        public readonly string $fiz_formaFinansowania_Nazwa,
-        public readonly string $fiz_formaWlasnosci_Nazwa,
-        public readonly string $fiz_dzialalnoscCeidg,
-        public readonly string $fiz_dzialalnoscRolnicza,
-        public readonly string $fiz_dzialalnoscPozostala,
-        public readonly string $fiz_dzialalnoscSkreslonaDo20141108,
-        public readonly string $fiz_liczbaJednLokalnych,
+        public string $fiz_regon9,
+        public string $fiz_nip,
+        public string $fiz_statusNip,
+        public string $fiz_nazwisko,
+        public string $fiz_imie1,
+        public string $fiz_imie2,
+        public string $fiz_dataWpisuPodmiotuDoRegon,
+        public string $fiz_dataZaistnieniaZmiany,
+        public string $fiz_dataSkresleniaPodmiotuZRegon,
+        public string $fiz_podstawowaFormaPrawna_Symbol,
+        public string $fiz_szczegolnaFormaPrawna_Symbol,
+        public string $fiz_formaFinansowania_Symbol,
+        public string $fiz_formaWlasnosci_Symbol,
+        public string $fiz_podstawowaFormaPrawna_Nazwa,
+        public string $fiz_szczegolnaFormaPrawna_Nazwa,
+        public string $fiz_formaFinansowania_Nazwa,
+        public string $fiz_formaWlasnosci_Nazwa,
+        public string $fiz_dzialalnoscCeidg,
+        public string $fiz_dzialalnoscRolnicza,
+        public string $fiz_dzialalnoscPozostala,
+        public string $fiz_dzialalnoscSkreslonaDo20141108,
+        public string $fiz_liczbaJednLokalnych,
     ) {
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function result(): array
     {
         return (array) $this;

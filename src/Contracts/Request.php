@@ -6,5 +6,8 @@ namespace Rudashi\GusApi\Contracts;
 
 interface Request
 {
+    /**
+     * @return array<string, string|string[]>
+     */
     public function toArray(): array;
 }
