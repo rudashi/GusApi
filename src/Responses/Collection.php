@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rudashi\GusApi\Responses;
 
 use ArrayIterator;
-use Closure;
 use Countable;
 use IteratorAggregate;
 use Rudashi\GusApi\Contracts\Response;
