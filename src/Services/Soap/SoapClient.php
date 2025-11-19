@@ -43,7 +43,7 @@ class SoapClient extends BaseClient
     }
 
     /**
-     * @param array<string, string> $arguments
+     * @param array<string, mixed> $arguments
      * @param array<string, mixed>|null $options
      * @param array<string, \SoapHeader>|null $input_headers
      */
