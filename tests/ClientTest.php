@@ -552,309 +552,323 @@ it('throws an Exception when not logged while searching multiple entities by REG
     );
 });
 
-/**
- * Action::FULL_REPORT
- */
+describe('Action::FULL_REPORT', function (): void {
+    it('can get information about person by `PERSON_GENERAL`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
 
-it('can get information about person by `PERSON_GENERAL`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '340843382',
-            report: ReportName::PERSON_GENERAL,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(PersonResponse::class)
-        ->toHaveProperty('fiz_regon9', '340843382');
-});
-
-it('can get person CEIDG list by `PERSON_CEIDG`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '151482826',
-            report: ReportName::PERSON_CEIDG,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(PersonCompanyResponse::class)
-        ->toHaveProperty('fiz_regon9', '151482826');
-});
-
-it('can get information about person by `PERSON_AGRO`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '530532330',
-            report: ReportName::PERSON_AGRO,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(PersonCompanyResponse::class)
-        ->toHaveProperty('fiz_regon9', '530532330');
-});
-
-it('can get information about person by `PERSON_OTHER`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '278287718',
-            report: ReportName::PERSON_OTHER,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(PersonCompanyResponse::class)
-        ->toHaveProperty('fiz_regon9', '278287718');
-});
-
-it('can get information about person by `PERSON_DELETED`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '340843382',
-            report: ReportName::PERSON_DELETED,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(PersonCompanyResponse::class)
-        ->toHaveProperty('fiz_regon9', '340843382');
-});
-
-it('can get person PKD list by `PERSON_PKD`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '151482826',
-            report: ReportName::PERSON_PKD,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(50)
-        ->each(
-            fn ($item) => $item
-                ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-                ->pkdKod->not->toBe('')
-                ->pkdNazwa->not->toBe('')
-                ->pkdPrzewazajace->not->toBe('')
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '340843382',
+                report: ReportName::PERSON_GENERAL,
+            )
         );
-});
 
-it('can get person locals by `PERSON_LOCALS`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
+        expect($response->result())
+            ->toBeInstanceOf(PersonResponse::class)
+            ->toHaveProperty('fiz_regon9', '340843382');
+    });
 
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '151482826',
-            report: ReportName::PERSON_LOCALS,
-        )
-    );
+    it('can get person CEIDG list by `PERSON_CEIDG`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
 
-    expect($response->result())
-        ->toBeInstanceOf(LocalResponse::class)
-        ->toHaveProperty('regon14', '15148282600033');
-});
-
-it('can get information about local person by `LOCAL_PERSON`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '15148282600033',
-            report: ReportName::LOCAL_PERSON,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(LocalResponse::class)
-        ->toHaveProperty('regon14', '15148282600033');
-});
-
-it('can get local person PKD list by `LOCAL_PERSON_PKD`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '15148282600033',
-            report: ReportName::LOCAL_PERSON_PKD,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(2)
-        ->each(
-            fn ($item) => $item
-                ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-                ->pkdKod->not->toBe('')
-                ->pkdNazwa->not->toBe('')
-                ->pkdPrzewazajace->not->toBe('')
-                ->silosSymbol->not->toBe('')
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '151482826',
+                report: ReportName::PERSON_CEIDG,
+            )
         );
-});
 
-it('can get report about company by `COMPANY`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
+        expect($response->result())
+            ->toBeInstanceOf(PersonCompanyResponse::class)
+            ->toHaveProperty('fiz_regon9', '151482826');
+    });
 
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '091187826',
-            report: ReportName::COMPANY,
-        )
-    );
+    it('can get information about person by `PERSON_AGRO`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
 
-    expect($response->result())
-        ->toBeInstanceOf(CompanyResponse::class)
-        ->toHaveProperty('praw_nip', '5561007611');
-});
-
-it('can get company PKD list by `COMPANY_PKD`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '091187826',
-            report: ReportName::COMPANY_PKD,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(38)
-        ->each(
-            fn ($item) => $item
-                ->toBeInstanceOf(CompanyPKDResponse::class)
-                ->pkdKod->not->toBe('')
-                ->pkdNazwa->not->toBe('')
-                ->pkdPrzewazajace->not->toBe('')
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '530532330',
+                report: ReportName::PERSON_AGRO,
+            )
         );
-});
 
-it('can get company locals by `COMPANY_LOCALS`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
+        expect($response->result())
+            ->toBeInstanceOf(PersonCompanyResponse::class)
+            ->toHaveProperty('fiz_regon9', '530532330');
+    });
 
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '016298263',
-            report: ReportName::COMPANY_LOCALS,
-        )
-    );
+    it('can get information about person by `PERSON_OTHER`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
 
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(23)
-        ->each(fn ($item) => $item->toBeInstanceOf(LocalResponse::class));
-});
-
-it('can get company partners by `COMPANY_PARTNERS`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '091187826',
-            report: ReportName::COMPANY_PARTNERS,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(4)
-        ->each(fn ($item) => $item->toBeInstanceOf(CompanyPartnersResponse::class));
-});
-
-it('can get type of the company by `COMPANY_TYPE`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '091187826',
-            report: ReportName::COMPANY_TYPE,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(CompanyTypeResponse::class)
-        ->result()->toBe(CompanyType::COMPANY);
-});
-
-it('can get information about entity by `LOCAL_COMPANY`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '01629826305798',
-            report: ReportName::LOCAL_COMPANY,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(LocalResponse::class)
-        ->toHaveProperty('regon14', '01629826305798');
-});
-
-it('can get entity PKD list by `LOCAL_COMPANY_PKD`', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
-
-    $response = $client->getFullReport(
-        new FullReportRequest(
-            regon: '00000002300041',
-            report: ReportName::LOCAL_COMPANY_PKD,
-        )
-    );
-
-    expect($response->result())
-        ->toBeInstanceOf(Collection::class)
-        ->toHaveCount(1)
-        ->each(
-            fn ($item) => $item
-                ->toBeInstanceOf(CompanyPKDResponse::class)
-                ->pkdKod->not->toBe('')
-                ->pkdNazwa->not->toBe('')
-                ->pkdPrzewazajace->not->toBe('')
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '278287718',
+                report: ReportName::PERSON_OTHER,
+            )
         );
-});
 
-it('throws an Exception when not found entity report', function () {
-    $client = client();
-    $client->login(new LoginRequest(API_KEY))->result();
+        expect($response->result())
+            ->toBeInstanceOf(PersonCompanyResponse::class)
+            ->toHaveProperty('fiz_regon9', '278287718');
+    });
 
-    expect(fn () => $client->getFullReport(
-        new FullReportRequest(
-            regon: '091187826',
-            report: ReportName::PERSON_GENERAL,
-        )
-    )->result())
-        ->toThrow(
-            NotFoundEntity::class,
-            'Nieprawidłowa lub pusta nazwa raportu lub nieprawidłowy identyfikator.'
+    it('can get information about person by `PERSON_DELETED`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '340843382',
+                report: ReportName::PERSON_DELETED,
+            )
         );
+
+        expect($response->result())
+            ->toBeInstanceOf(PersonCompanyResponse::class)
+            ->toHaveProperty('fiz_regon9', '340843382');
+    });
+
+    it('can get person PKD list by `PERSON_PKD`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '151482826',
+                report: ReportName::PERSON_PKD,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(50)
+            ->each(
+                fn ($item) => $item
+                    ->toBeInstanceOf(PersonCompanyPKDResponse::class)
+                    ->pkdKod->not->toBe('')
+                    ->pkdNazwa->not->toBe('')
+                    ->pkdPrzewazajace->not->toBe('')
+            );
+    });
+
+    it('can get person locals by `PERSON_LOCALS`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '151482826',
+                report: ReportName::PERSON_LOCALS,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(LocalResponse::class)
+            ->toHaveProperty('regon14', '15148282600033');
+    });
+
+    it('can get information about local person by `LOCAL_PERSON`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '15148282600033',
+                report: ReportName::LOCAL_PERSON,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(LocalResponse::class)
+            ->toHaveProperty('regon14', '15148282600033');
+    });
+
+    it('can get local person PKD list by `LOCAL_PERSON_PKD`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '15148282600033',
+                report: ReportName::LOCAL_PERSON_PKD,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(2)
+            ->each(
+                fn ($item) => $item
+                    ->toBeInstanceOf(PersonCompanyPKDResponse::class)
+                    ->pkdKod->not->toBe('')
+                    ->pkdNazwa->not->toBe('')
+                    ->pkdPrzewazajace->not->toBe('')
+                    ->silosSymbol->not->toBe('')
+            );
+    });
+
+    it('can get report about company by `COMPANY`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '091187826',
+                report: ReportName::COMPANY,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(CompanyResponse::class)
+            ->toHaveProperty('praw_nip', '5561007611');
+    });
+
+    it('can get company PKD list by `COMPANY_PKD`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '091187826',
+                report: ReportName::COMPANY_PKD,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(38)
+            ->each(
+                fn ($item) => $item
+                    ->toBeInstanceOf(CompanyPKDResponse::class)
+                    ->pkdKod->not->toBe('')
+                    ->pkdNazwa->not->toBe('')
+                    ->pkdPrzewazajace->not->toBe('')
+            );
+    });
+
+    it('can get company locals by `COMPANY_LOCALS`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '016298263',
+                report: ReportName::COMPANY_LOCALS,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(23)
+            ->each(fn ($item) => $item->toBeInstanceOf(LocalResponse::class));
+    });
+
+    it('can get company partners by `COMPANY_PARTNERS`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '091187826',
+                report: ReportName::COMPANY_PARTNERS,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(4)
+            ->each(fn ($item) => $item->toBeInstanceOf(CompanyPartnersResponse::class));
+    });
+
+    it('can get type of the company by `COMPANY_TYPE`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '091187826',
+                report: ReportName::COMPANY_TYPE,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(CompanyTypeResponse::class)
+            ->result()->toBe(CompanyType::COMPANY);
+    });
+
+    it('can get information about entity by `LOCAL_COMPANY`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '01629826305798',
+                report: ReportName::LOCAL_COMPANY,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(LocalResponse::class)
+            ->toHaveProperty('regon14', '01629826305798');
+    });
+
+    it('can get entity PKD list by `LOCAL_COMPANY_PKD`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '00000002300041',
+                report: ReportName::LOCAL_COMPANY_PKD,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(Collection::class)
+            ->toHaveCount(1)
+            ->each(
+                fn ($item) => $item
+                    ->toBeInstanceOf(CompanyPKDResponse::class)
+                    ->pkdKod->not->toBe('')
+                    ->pkdNazwa->not->toBe('')
+                    ->pkdPrzewazajace->not->toBe('')
+            );
+    });
+
+    it('throws an Exception when not found entity report', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        expect(fn () => $client->getFullReport(
+            new FullReportRequest(
+                regon: '091187826',
+                report: ReportName::PERSON_GENERAL,
+            )
+        )->result())
+            ->toThrow(
+                NotFoundEntity::class,
+                'Nieprawidłowa lub pusta nazwa raportu lub nieprawidłowy identyfikator.'
+            );
+    });
+
+    it('can get entity with NIP by `LOCAL_COMPANY_NIP`', function () {
+        $client = client();
+        $client->login(new LoginRequest(API_KEY))->result();
+
+        $response = $client->getFullReport(
+            new FullReportRequest(
+                regon: '00000002300041',
+                report: ReportName::LOCAL_COMPANY_NIP,
+            )
+        );
+
+        expect($response->result())
+            ->toBeInstanceOf(LocalResponse::class)
+            ->toHaveProperty('regon14', '00000002300041');
+    });
 });

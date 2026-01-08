@@ -33,6 +33,7 @@ enum ReportName: string
     case COMPANY_TYPE = 'BIR11TypPodmiotu';
     case LOCAL_COMPANY = 'BIR11JednLokalnaOsPrawnej';
     case LOCAL_COMPANY_PKD = 'BIR11JednLokalnaOsPrawnejPkd';
+    case LOCAL_COMPANY_NIP = 'Bir121JednLokalnaOsPrawnej';
 
     public function equals(ReportName $report): bool
     {
@@ -57,7 +58,8 @@ enum ReportName: string
             self::COMPANY_PARTNERS,
             self::COMPANY_TYPE => CompanyType::COMPANY,
             self::LOCAL_COMPANY,
-            self::LOCAL_COMPANY_PKD => CompanyType::LOCAL_COMPANY,
+            self::LOCAL_COMPANY_PKD,
+            self::LOCAL_COMPANY_NIP => CompanyType::LOCAL_COMPANY,
         };
     }
 
@@ -100,6 +102,7 @@ enum ReportName: string
             self::LOCAL_COMPANY_PKD => new Collection([
                 CompanyPKDResponse::forLocalCompany(...self::map((array) $response['dane'])),
             ]),
+            self::LOCAL_COMPANY_NIP => LocalResponse::forNip(...self::map((array) $response['dane'])),
         };
     }
 
