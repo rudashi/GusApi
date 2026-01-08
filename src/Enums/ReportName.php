@@ -35,7 +35,7 @@ enum ReportName: string
     case LOCAL_COMPANY_PKD = 'BIR11JednLokalnaOsPrawnejPkd';
     case LOCAL_COMPANY_NIP = 'Bir121JednLokalnaOsPrawnej';
 
-    public function equals(ReportName $report): bool
+    public function equals(self $report): bool
     {
         return $this === $report;
     }
@@ -64,7 +64,7 @@ enum ReportName: string
     }
 
     /**
-     * @param array{dane: \SimpleXMLElement|\SimpleXMLElement[]} $response
+     * @param array{dane: \SimpleXMLElement|iterable<\SimpleXMLElement>} $response
      */
     public function toResponse(array $response): Response
     {
@@ -97,7 +97,7 @@ enum ReportName: string
                 static fn ($item) => new CompanyPartnersResponse(...(array) $item),
                 $response['dane'],
             ),
-            self::COMPANY_TYPE => CompanyTypeResponse::of((string) $response['dane']->Typ),
+            self::COMPANY_TYPE => CompanyTypeResponse::of(self::map((array) $response['dane'])['Typ']),
             self::LOCAL_COMPANY => LocalResponse::forCompany(...self::map((array) $response['dane'])),
             self::LOCAL_COMPANY_PKD => new Collection([
                 CompanyPKDResponse::forLocalCompany(...self::map((array) $response['dane'])),

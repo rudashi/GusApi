@@ -160,7 +160,7 @@ it('can find business entity by NIP', function () {
         ))
     );
 
-    expect($response->result())
+    expect($response->resultOne())
         ->toBeInstanceOf(CompanyModel::class)
         ->Nip->toBe('5561007611');
 });
@@ -207,7 +207,7 @@ it('can find business entity by KRS', function () {
         ))
     );
 
-    expect($response->result())
+    expect($response->resultOne())
         ->toBeInstanceOf(CompanyModel::class)
         ->Nip->toBe('5561007611');
 });
@@ -254,7 +254,7 @@ it('can find business entity by REGON', function () {
         ))
     );
 
-    expect($response->result())
+    expect($response->resultOne())
         ->toBeInstanceOf(CompanyModel::class)
         ->Nip->toBe('5561007611')
         ->Regon->toBe('091187826');
@@ -300,7 +300,6 @@ it('can find multiple business entities by NIP', function () {
         request: new SearchDataRequest(new SearchParameters(
             nipy: '5561007611,5260030236',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -320,7 +319,6 @@ it('returns one entity in collection when searching multiple NIP', function () {
         request: new SearchDataRequest(new SearchParameters(
             nipy: '5561007611,526003023',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -339,7 +337,6 @@ it('throws an Exception when not found any NIP', function () {
         request: new SearchDataRequest(new SearchParameters(
             nipy: '556100761,526003023',
         )),
-        collect: true
     )->result())
         ->toThrow(
             NotFoundEntity::class,
@@ -371,7 +368,6 @@ it('can find multiple business entities by KRS', function () {
         request: new SearchDataRequest(new SearchParameters(
             krsy: '0000496427,0000149371',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -391,7 +387,6 @@ it('returns one entity in collection when searching multiple KRS', function () {
         request: new SearchDataRequest(new SearchParameters(
             krsy: '0000496427,000149371',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -410,7 +405,6 @@ it('throws an Exception when not found any KRS', function () {
         request: new SearchDataRequest(new SearchParameters(
             krsy: '000496427,000149371',
         )),
-        collect: true
     )->result())
         ->toThrow(
             NotFoundEntity::class,
@@ -442,7 +436,6 @@ it('can find multiple business entities by REGON', function () {
         request: new SearchDataRequest(new SearchParameters(
             regony: '091187826,010421047',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -462,7 +455,6 @@ it('returns one entity in collection when searching multiple REGON', function ()
         request: new SearchDataRequest(new SearchParameters(
             regony: '091187826,10421047',
         )),
-        collect: true
     );
 
     expect($response->result())
@@ -481,7 +473,6 @@ it('throws an Exception when not found any REGON', function () {
         request: new SearchDataRequest(new SearchParameters(
             regony: '09118726,1042147',
         )),
-        collect: true
     )->result())
         ->toThrow(
             NotFoundEntity::class,
@@ -515,7 +506,7 @@ it('can find business entity by REGON_14', function () {
         ))
     );
 
-    expect($response->result())
+    expect($response->resultOne())
         ->toBeInstanceOf(CompanyModel::class)
         ->Nip->toBe('')
         ->Regon->toBe('00000002300041');

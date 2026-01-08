@@ -13,10 +13,11 @@ use SimpleXMLElement;
 
 class FullReportResponse implements Response
 {
+    private SimpleXMLElement $xml;
+
     public function __construct(
         private string $DanePobierzPelnyRaportResult,
         private ReportName $report,
-        private SimpleXMLElement|null $xml = null,
     ) {
     }
 
@@ -43,7 +44,10 @@ class FullReportResponse implements Response
             throw new NotFoundEntity((string) $this->xml->dane->ErrorMessagePl);
         }
 
-        return $this->report->toResponse((array) $this->xml);
+        /** @var array{dane: \SimpleXMLElement|iterable<\SimpleXMLElement>} $xmlArray */
+        $xmlArray = (array) $this->xml;
+
+        return $this->report->toResponse($xmlArray);
     }
 
     private function isError(SimpleXMLElement $xml): bool

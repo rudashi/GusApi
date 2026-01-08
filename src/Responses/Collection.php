@@ -34,7 +34,7 @@ class Collection implements Countable, IteratorAggregate, Response
      */
     public static function each(callable $callable, iterable $items): self
     {
-        return new self(array_map($callable, $items));
+        return new self(array_map($callable, (array) $items));
     }
 
     public function count(): int

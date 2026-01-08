@@ -23,11 +23,12 @@ use Rudashi\GusApi\Services\Soap\SoapService;
 
 class Client
 {
-    public const SERVICE = 'GUS';
+    public const string SERVICE = 'GUS';
+
+    private Soap $soap;
 
     public function __construct(
         private readonly Environment $environment,
-        private Soap|null $soap = null,
     ) {
     }
 
@@ -38,7 +39,7 @@ class Client
 
     public function build(): static
     {
-        if ($this->soap) {
+        if (isset($this->soap)) {
             return $this;
         }
 
@@ -67,7 +68,7 @@ class Client
         $response = $this->call(Action::LOGIN, $request);
 
         if ($response->isAuthorized()) {
-            $this->soap->editService(
+            $this->getSoap()->editService(
                 name: self::SERVICE,
                 closure: static fn (SoapService $service) => $service->setContextOptions([
                     'http' => [
@@ -96,12 +97,12 @@ class Client
         return $response;
     }
 
-    public function searchEntity(SearchDataRequest $request, bool $collect = false): SearchDataResponse
+    public function searchEntity(SearchDataRequest $request): SearchDataResponse
     {
         /** @var \Rudashi\GusApi\Responses\SearchDataResponse $response */
         $response = $this->call(Action::SEARCH_DATA, $request);
 
-        return $response->parseToXml($collect);
+        return $response->parseToXml();
     }
 
     public function getFullReport(FullReportRequest $request): FullReportResponse
@@ -112,12 +113,9 @@ class Client
         return $response->parseToXml($request->report());
     }
 
-    /**
-     * @throws \SoapFault
-     */
     protected function call(Action $action, Request $request): Response
     {
-        return $this->soap
+        return $this->getSoap()
             ->service(self::SERVICE)
             ->addHeader(
                 name: 'To',
@@ -128,5 +126,10 @@ class Client
                 action: $action->service(),
                 data: $request->toArray(),
             );
+    }
+
+    private function getSoap(): Soap
+    {
+        return $this->soap;
     }
 }

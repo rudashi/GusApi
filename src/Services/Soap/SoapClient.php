@@ -17,7 +17,7 @@ class SoapClient extends BaseClient
         string $location,
         string $action,
         int $version,
-        $oneWay = false
+        bool $oneWay = false
     ): string {
         $response = parent::__doRequest($request, $location, $action, $version, $oneWay);
 
@@ -25,7 +25,19 @@ class SoapClient extends BaseClient
             throw new SoapFault('0', 'Empty response.');
         }
 
-        return stristr(stristr($response, '<s:'), '</s:Envelope>', true) . '</s:Envelope>';
+        $envelope = stristr($response, '<s:');
+
+        if ($envelope === false) {
+            throw new SoapFault('0', 'Invalid SOAP response format.');
+        }
+
+        $result = stristr($envelope, '</s:Envelope>', true);
+
+        if ($result === false) {
+            throw new SoapFault('0', 'Invalid SOAP envelope format.');
+        }
+
+        return $result . '</s:Envelope>';
     }
 
     /**
@@ -35,7 +47,7 @@ class SoapClient extends BaseClient
      */
     public static function new(string $wsdl, ?array $options = null, ?string $location = null): self
     {
-        $client = new self($wsdl, $options);
+        $client = new self($wsdl, $options ?? []);
 
         $client->__setLocation($location);
 

@@ -25,7 +25,7 @@ use Rudashi\GusApi\Services\SearchParameters;
 
 class GusApi
 {
-    protected const LIMIT_IDS = 20;
+    protected const int LIMIT_IDS = 20;
     private readonly Client $client;
     private string $sessionId;
 
@@ -104,7 +104,7 @@ class GusApi
         return isset($this->sessionId);
     }
 
-    public function login(): GusApi
+    public function login(): self
     {
         $response = $this->client->login(new LoginRequest($this->key));
 
@@ -127,7 +127,7 @@ class GusApi
         return new CompanyResponse(
             $this->authorize()->client->searchEntity(
                 request: new SearchDataRequest(SearchParameters::krs($value))
-            )->result()
+            )->resultOne()
         );
     }
 
@@ -140,7 +140,6 @@ class GusApi
     {
         return $this->limit($values)->authorize()->client->searchEntity(
             request: new SearchDataRequest(SearchParameters::krsy($values)),
-            collect: true
         )->result();
     }
 
@@ -149,7 +148,7 @@ class GusApi
         return new CompanyResponse(
             $this->authorize()->client->searchEntity(
                 request: new SearchDataRequest(SearchParameters::nip($value))
-            )->result()
+            )->resultOne()
         );
     }
 
@@ -162,7 +161,6 @@ class GusApi
     {
         return $this->limit($values)->authorize()->client->searchEntity(
             request: new SearchDataRequest(SearchParameters::nipy($values)),
-            collect: true
         )->result();
     }
 
@@ -171,7 +169,7 @@ class GusApi
         return new CompanyResponse(
             $this->authorize()->client->searchEntity(
                 request: new SearchDataRequest(SearchParameters::regon($value))
-            )->result()
+            )->resultOne()
         );
     }
 
@@ -184,7 +182,6 @@ class GusApi
     {
         return $this->limit($values)->authorize()->client->searchEntity(
             request: new SearchDataRequest(SearchParameters::regony($values)),
-            collect: true
         )->result();
     }
 
@@ -197,7 +194,6 @@ class GusApi
     {
         return $this->limit($values)->authorize()->client->searchEntity(
             request: new SearchDataRequest(SearchParameters::regony14($values)),
-            collect: true
         )->result();
     }
 

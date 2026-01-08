@@ -10,7 +10,7 @@ use SoapHeader;
 class SoapService
 {
     protected string $wsdl;
-    protected SoapClient|null $client = null;
+    protected SoapClient $client;
     /**
      * @var array<string, mixed>
      */
@@ -55,13 +55,13 @@ class SoapService
     }
 
     /**
-     * @param array<string> $data
+     * @param array<string, string|string[]> $data
      * @param array<string, mixed> $options
      * @param array<string, \SoapHeader> $headers
      */
     public function run(SoapCall $action, array $data, array $options = [], array $headers = []): mixed
     {
-        if ($this->client === null) {
+        if (! isset($this->client)) {
             $this->addClient(SoapClient::new(
                 $this->wsdl,
                 $this->getOptions(),

@@ -13,15 +13,14 @@ use SimpleXMLElement;
 
 class SearchDataResponse implements Response
 {
-    private bool $collect = false;
+    private SimpleXMLElement $xml;
 
     public function __construct(
         private string $DaneSzukajPodmiotyResult,
-        private SimpleXMLElement|null $xml = null,
     ) {
     }
 
-    public function parseToXml(bool $toCollection = false): static
+    public function parseToXml(): static
     {
         if ($this->DaneSzukajPodmiotyResult === '') {
             throw new NotFoundEntity('Entity not found.');
@@ -30,7 +29,6 @@ class SearchDataResponse implements Response
         try {
             $this->xml = new SimpleXMLElement($this->DaneSzukajPodmiotyResult);
             $this->DaneSzukajPodmiotyResult = '';
-            $this->collect = $toCollection;
         } catch (Exception $e) {
             throw new InvalidArgumentException('Invalid xml response', 0, $e);
         }
@@ -39,17 +37,20 @@ class SearchDataResponse implements Response
     }
 
     /**
-     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>|\Rudashi\GusApi\Services\CompanyModel
+     * @return \Rudashi\GusApi\Responses\Collection<int, \Rudashi\GusApi\Services\CompanyModel>
      */
-    public function result(): Collection|CompanyModel
+    public function result(): Collection
     {
         if ($this->isError($this->xml->dane)) {
             throw new NotFoundEntity((string) $this->xml->dane->ErrorMessagePl);
         }
 
-        $collection = $this->toCollection();
+        return $this->toCollection();
+    }
 
-        return $this->collect ? $collection : $collection->first();
+    public function resultOne(): CompanyModel
+    {
+        return $this->result()->first();
     }
 
     /**
@@ -74,7 +75,10 @@ class SearchDataResponse implements Response
      */
     private function asArray(): array
     {
-        return (array) $this->xml;
+        /** @var array{dane: array<int, \SimpleXMLElement>} $array */
+        $array = (array) $this->xml;
+
+        return $array;
     }
 
     private function isError(SimpleXMLElement $xml): bool
