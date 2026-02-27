@@ -508,7 +508,7 @@ it('can find business entity by REGON_14', function () {
 
     expect($response->resultOne())
         ->toBeInstanceOf(CompanyModel::class)
-        ->Nip->toBe('')
+        ->Nip->toBeEmpty()
         ->Regon->toBe('00000002300041');
 });
 
@@ -641,9 +641,9 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(
                 fn ($item) => $item
                     ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-                    ->pkdKod->not->toBe('')
-                    ->pkdNazwa->not->toBe('')
-                    ->pkdPrzewazajace->not->toBe('')
+                    ->pkdKod->not->toBeEmpty()
+                    ->pkdNazwa->not->toBeEmpty()
+                    ->pkdPrzewazajace->not->toBeEmpty()
             );
     });
 
@@ -696,10 +696,10 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(
                 fn ($item) => $item
                     ->toBeInstanceOf(PersonCompanyPKDResponse::class)
-                    ->pkdKod->not->toBe('')
-                    ->pkdNazwa->not->toBe('')
-                    ->pkdPrzewazajace->not->toBe('')
-                    ->silosSymbol->not->toBe('')
+                    ->pkdKod->not->toBeEmpty()
+                    ->pkdNazwa->not->toBeEmpty()
+                    ->pkdPrzewazajace->not->toBeEmpty()
+                    ->silosSymbol->not->toBeEmpty()
             );
     });
 
@@ -736,9 +736,9 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(
                 fn ($item) => $item
                     ->toBeInstanceOf(CompanyPKDResponse::class)
-                    ->pkdKod->not->toBe('')
-                    ->pkdNazwa->not->toBe('')
-                    ->pkdPrzewazajace->not->toBe('')
+                    ->pkdKod->not->toBeEmpty()
+                    ->pkdNazwa->not->toBeEmpty()
+                    ->pkdPrzewazajace->not->toBeEmpty()
             );
     });
 
@@ -825,9 +825,9 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(
                 fn ($item) => $item
                     ->toBeInstanceOf(CompanyPKDResponse::class)
-                    ->pkdKod->not->toBe('')
-                    ->pkdNazwa->not->toBe('')
-                    ->pkdPrzewazajace->not->toBe('')
+                    ->pkdKod->not->toBeEmpty()
+                    ->pkdNazwa->not->toBeEmpty()
+                    ->pkdPrzewazajace->not->toBeEmpty()
             );
     });
 
