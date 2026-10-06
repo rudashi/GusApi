@@ -32,7 +32,7 @@ use function Rudashi\GusApi\Tests\client;
 
 uses(TestCase::class);
 
-it('returns empty string when login fails', function () {
+it('returns empty string when login fails', function (): void {
     $response = client()->login(new LoginRequest('test'));
 
     expect($response->result())
@@ -40,7 +40,7 @@ it('returns empty string when login fails', function () {
         ->toBeEmpty();
 });
 
-it('returns session id when login pass', function () {
+it('returns session id when login pass', function (): void {
     $response = client()->login(new LoginRequest(DEFAULT_KEY));
 
     expect($response->result())
@@ -48,7 +48,7 @@ it('returns session id when login pass', function () {
         ->toHaveLength(20);
 });
 
-it('can logout', function () {
+it('can logout', function (): void {
     $client = client();
     $session = $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -61,7 +61,7 @@ it('can logout', function () {
 /**
  * Action::GET_VALUE
  */
-it('can get service value about data status', function () {
+it('can get service value about data status', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -72,7 +72,7 @@ it('can get service value about data status', function () {
         ->toHaveLength(10);
 });
 
-it('returns empty string for data status when not logged', function () {
+it('returns empty string for data status when not logged', function (): void {
     $response = client()->getValue(new GetValueRequest(GetValue::DATA_STATUS));
 
     expect($response->result())
@@ -80,7 +80,7 @@ it('returns empty string for data status when not logged', function () {
         ->toBeEmpty();
 });
 
-it('can get service value about message code', function () {
+it('can get service value about message code', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -91,7 +91,7 @@ it('can get service value about message code', function () {
         ->toBe('0');
 });
 
-it('returns empty string for message code when not logged', function () {
+it('returns empty string for message code when not logged', function (): void {
     $response = client()->getValue(new GetValueRequest(GetValue::MESSAGE_CODE));
 
     expect($response->result())
@@ -99,7 +99,7 @@ it('returns empty string for message code when not logged', function () {
         ->toBeEmpty();
 });
 
-it('can get service value about message', function () {
+it('can get service value about message', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -110,7 +110,7 @@ it('can get service value about message', function () {
         ->toBeEmpty();
 });
 
-it('can get service value about session status', function () {
+it('can get service value about session status', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -121,7 +121,7 @@ it('can get service value about session status', function () {
         ->toBe('1');
 });
 
-it('returns empty string for session status when not logged', function () {
+it('returns empty string for session status when not logged', function (): void {
     $response = client()->getValue(new GetValueRequest(GetValue::SESSION_STATUS));
 
     expect($response->result())
@@ -129,7 +129,7 @@ it('returns empty string for session status when not logged', function () {
         ->toBeEmpty();
 });
 
-it('can get service value about service status', function () {
+it('can get service value about service status', function (): void {
     $response = client()->getValue(new GetValueRequest(GetValue::SERVICE_STATUS));
 
     expect($response->result())
@@ -137,7 +137,7 @@ it('can get service value about service status', function () {
         ->toBe('1');
 });
 
-it('can get service value about service message', function () {
+it('can get service value about service message', function (): void {
     $response = client()->getValue(new GetValueRequest(GetValue::SERVICE_MESSAGE));
 
     expect($response->result())
@@ -150,7 +150,7 @@ it('can get service value about service message', function () {
  */
 
 /*************************      NIP         **********************/
-it('can find business entity by NIP', function () {
+it('can find business entity by NIP', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -165,7 +165,7 @@ it('can find business entity by NIP', function () {
         ->Nip->toBe('5561007611');
 });
 
-it('throws an Exception when NIP business entity not exists', function () {
+it('throws an Exception when NIP business entity not exists', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -181,7 +181,7 @@ it('throws an Exception when NIP business entity not exists', function () {
     );
 });
 
-it('throws an Exception when not logged while searching entity by NIP', function () {
+it('throws an Exception when not logged while searching entity by NIP', function (): void {
     $client = client();
 
     expect(
@@ -197,7 +197,7 @@ it('throws an Exception when not logged while searching entity by NIP', function
 });
 
 /*************************      KRS         **********************/
-it('can find business entity by KRS', function () {
+it('can find business entity by KRS', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -212,7 +212,7 @@ it('can find business entity by KRS', function () {
         ->Nip->toBe('5561007611');
 });
 
-it('throws an Exception when KRS business entity not exists', function () {
+it('throws an Exception when KRS business entity not exists', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -228,7 +228,7 @@ it('throws an Exception when KRS business entity not exists', function () {
     );
 });
 
-it('throws an Exception when not logged while searching entity by KRS', function () {
+it('throws an Exception when not logged while searching entity by KRS', function (): void {
     $client = client();
 
     expect(
@@ -244,7 +244,7 @@ it('throws an Exception when not logged while searching entity by KRS', function
 });
 
 /*************************      REGON         **********************/
-it('can find business entity by REGON', function () {
+it('can find business entity by REGON', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -260,7 +260,7 @@ it('can find business entity by REGON', function () {
         ->Regon->toBe('091187826');
 });
 
-it('throws an Exception when REGON business entity not exists', function () {
+it('throws an Exception when REGON business entity not exists', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -276,7 +276,7 @@ it('throws an Exception when REGON business entity not exists', function () {
     );
 });
 
-it('throws an Exception when not logged while searching entity by REGON', function () {
+it('throws an Exception when not logged while searching entity by REGON', function (): void {
     $client = client();
 
     expect(
@@ -292,7 +292,7 @@ it('throws an Exception when not logged while searching entity by REGON', functi
 });
 
 /*************************      NIPY         **********************/
-it('can find multiple business entities by NIP', function () {
+it('can find multiple business entities by NIP', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -311,7 +311,7 @@ it('can find multiple business entities by NIP', function () {
         );
 });
 
-it('returns one entity in collection when searching multiple NIP', function () {
+it('returns one entity in collection when searching multiple NIP', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -329,7 +329,7 @@ it('returns one entity in collection when searching multiple NIP', function () {
         );
 });
 
-it('throws an Exception when not found any NIP', function () {
+it('throws an Exception when not found any NIP', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -344,7 +344,7 @@ it('throws an Exception when not found any NIP', function () {
         );
 });
 
-it('throws an Exception when not logged while searching multiple entities by NIP', function () {
+it('throws an Exception when not logged while searching multiple entities by NIP', function (): void {
     $client = client();
 
     expect(
@@ -360,7 +360,7 @@ it('throws an Exception when not logged while searching multiple entities by NIP
 });
 
 /*************************      KRSY         **********************/
-it('can find multiple business entities by KRS', function () {
+it('can find multiple business entities by KRS', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -379,7 +379,7 @@ it('can find multiple business entities by KRS', function () {
         );
 });
 
-it('returns one entity in collection when searching multiple KRS', function () {
+it('returns one entity in collection when searching multiple KRS', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -397,7 +397,7 @@ it('returns one entity in collection when searching multiple KRS', function () {
         );
 });
 
-it('throws an Exception when not found any KRS', function () {
+it('throws an Exception when not found any KRS', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -412,7 +412,7 @@ it('throws an Exception when not found any KRS', function () {
         );
 });
 
-it('throws an Exception when not logged while searching multiple entities by KRS', function () {
+it('throws an Exception when not logged while searching multiple entities by KRS', function (): void {
     $client = client();
 
     expect(
@@ -428,7 +428,7 @@ it('throws an Exception when not logged while searching multiple entities by KRS
 });
 
 /*************************      REGONY         **********************/
-it('can find multiple business entities by REGON', function () {
+it('can find multiple business entities by REGON', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -447,7 +447,7 @@ it('can find multiple business entities by REGON', function () {
         );
 });
 
-it('returns one entity in collection when searching multiple REGON', function () {
+it('returns one entity in collection when searching multiple REGON', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -465,7 +465,7 @@ it('returns one entity in collection when searching multiple REGON', function ()
         );
 });
 
-it('throws an Exception when not found any REGON', function () {
+it('throws an Exception when not found any REGON', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -480,7 +480,7 @@ it('throws an Exception when not found any REGON', function () {
         );
 });
 
-it('throws an Exception when not logged while searching multiple entities by REGON', function () {
+it('throws an Exception when not logged while searching multiple entities by REGON', function (): void {
     $client = client();
 
     expect(
@@ -496,7 +496,7 @@ it('throws an Exception when not logged while searching multiple entities by REG
 });
 
 /*************************      REGONY_14         **********************/
-it('can find business entity by REGON_14', function () {
+it('can find business entity by REGON_14', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -512,7 +512,7 @@ it('can find business entity by REGON_14', function () {
         ->Regon->toBe('00000002300041');
 });
 
-it('throws an Exception when REGON_14 business entity not exists', function () {
+it('throws an Exception when REGON_14 business entity not exists', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
@@ -528,7 +528,7 @@ it('throws an Exception when REGON_14 business entity not exists', function () {
     );
 });
 
-it('throws an Exception when not logged while searching multiple entities by REGON_14', function () {
+it('throws an Exception when not logged while searching multiple entities by REGON_14', function (): void {
     $client = client();
 
     expect(
@@ -544,12 +544,12 @@ it('throws an Exception when not logged while searching multiple entities by REG
 });
 
 describe('Action::FULL_REPORT', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $this->gus = client();
         $this->gus->login(new LoginRequest(DEFAULT_KEY))->result();
     });
 
-    it('can get information about person by `PERSON_GENERAL`', function () {
+    it('can get information about person by `PERSON_GENERAL`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '340843382',
@@ -562,7 +562,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('fiz_regon9', '340843382');
     });
 
-    it('can get person CEIDG list by `PERSON_CEIDG`', function () {
+    it('can get person CEIDG list by `PERSON_CEIDG`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '151482826',
@@ -575,7 +575,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('fiz_regon9', '151482826');
     });
 
-    it('can get information about person by `PERSON_AGRO`', function () {
+    it('can get information about person by `PERSON_AGRO`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '530532330',
@@ -588,7 +588,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('fiz_regon9', '530532330');
     });
 
-    it('can get information about person by `PERSON_OTHER`', function () {
+    it('can get information about person by `PERSON_OTHER`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '278287718',
@@ -601,7 +601,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('fiz_regon9', '278287718');
     });
 
-    it('can get information about person by `PERSON_DELETED`', function () {
+    it('can get information about person by `PERSON_DELETED`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '340843382',
@@ -614,7 +614,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('fiz_regon9', '340843382');
     });
 
-    it('can get person PKD list by `PERSON_PKD`', function () {
+    it('can get person PKD list by `PERSON_PKD`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '151482826',
@@ -634,7 +634,7 @@ describe('Action::FULL_REPORT', function (): void {
             );
     });
 
-    it('can get person locals by `PERSON_LOCALS`', function () {
+    it('can get person locals by `PERSON_LOCALS`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '151482826',
@@ -647,7 +647,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('regon14', '15148282600033');
     });
 
-    it('can get information about local person by `LOCAL_PERSON`', function () {
+    it('can get information about local person by `LOCAL_PERSON`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '15148282600033',
@@ -660,7 +660,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('regon14', '15148282600033');
     });
 
-    it('can get local person PKD list by `LOCAL_PERSON_PKD`', function () {
+    it('can get local person PKD list by `LOCAL_PERSON_PKD`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '15148282600033',
@@ -681,7 +681,7 @@ describe('Action::FULL_REPORT', function (): void {
             );
     });
 
-    it('can get report about company by `COMPANY`', function () {
+    it('can get report about company by `COMPANY`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
@@ -694,7 +694,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('praw_nip', '5561007611');
     });
 
-    it('can get company PKD list by `COMPANY_PKD`', function () {
+    it('can get company PKD list by `COMPANY_PKD`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
@@ -714,7 +714,7 @@ describe('Action::FULL_REPORT', function (): void {
             );
     });
 
-    it('can get company locals by `COMPANY_LOCALS`', function () {
+    it('can get company locals by `COMPANY_LOCALS`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '016298263',
@@ -728,7 +728,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(fn ($item) => $item->toBeInstanceOf(LocalResponse::class));
     });
 
-    it('can get company partners by `COMPANY_PARTNERS`', function () {
+    it('can get company partners by `COMPANY_PARTNERS`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
@@ -742,7 +742,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->each(fn ($item) => $item->toBeInstanceOf(CompanyPartnersResponse::class));
     });
 
-    it('can get type of the company by `COMPANY_TYPE`', function () {
+    it('can get type of the company by `COMPANY_TYPE`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
@@ -755,7 +755,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->result()->toBe(CompanyType::COMPANY);
     });
 
-    it('can get information about entity by `LOCAL_COMPANY`', function () {
+    it('can get information about entity by `LOCAL_COMPANY`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '01629826305798',
@@ -768,7 +768,7 @@ describe('Action::FULL_REPORT', function (): void {
             ->toHaveProperty('regon14', '01629826305798');
     });
 
-    it('can get entity PKD list by `LOCAL_COMPANY_PKD`', function () {
+    it('can get entity PKD list by `LOCAL_COMPANY_PKD`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '00000002300041',
@@ -788,7 +788,7 @@ describe('Action::FULL_REPORT', function (): void {
             );
     });
 
-    it('throws an Exception when not found entity report', function () {
+    it('throws an Exception when not found entity report', function (): void {
         expect(fn () => $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
@@ -801,7 +801,7 @@ describe('Action::FULL_REPORT', function (): void {
             );
     });
 
-    it('can get entity with NIP by `LOCAL_COMPANY_NIP`', function () {
+    it('can get entity with NIP by `LOCAL_COMPANY_NIP`', function (): void {
         $response = $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '00000002300041',

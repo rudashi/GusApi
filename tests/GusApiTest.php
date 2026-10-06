@@ -20,14 +20,14 @@ use function Rudashi\GusApi\Tests\api;
 
 uses(TestCase::class);
 
-it('can set session id', function () {
+it('can set session id', function (): void {
     $api = api()->setSessionId('abc');
 
     expect($api->getSessionId())
         ->toBe('abc');
 });
 
-it('throws an Exception when session not ', function () {
+it('throws an Exception when session not ', function (): void {
     expect(fn () => api()->getSessionId())
         ->toThrow(
             MissingSession::class,
@@ -35,21 +35,21 @@ it('throws an Exception when session not ', function () {
         );
 });
 
-it('pass when session is started', function () {
+it('pass when session is started', function (): void {
     $api = api()->setSessionId('abc')->isLogged();
 
     expect($api)
         ->toBeTrue();
 });
 
-it('fails when session is not started', function () {
+it('fails when session is not started', function (): void {
     $api = api()->isLogged();
 
     expect($api)
         ->toBeFalse();
 });
 
-it('assign session id when login is success', function () {
+it('assign session id when login is success', function (): void {
     $api = api()->login();
 
     expect($api->getSessionId())
@@ -57,7 +57,7 @@ it('assign session id when login is success', function () {
         ->toHaveLength(20);
 });
 
-it('throws an Exception when provide incorrect login', function () {
+it('throws an Exception when provide incorrect login', function (): void {
     expect(fn () => api('test')->login())
         ->toThrow(
             InvalidUserKey::class,
@@ -65,14 +65,14 @@ it('throws an Exception when provide incorrect login', function () {
         );
 });
 
-it('can logout', function () {
+it('can logout', function (): void {
     $api = api()->login()->logout();
 
     expect($api)
         ->toBeTrue();
 });
 
-it('throws an Exception when session id is missing on logout', function () {
+it('throws an Exception when session id is missing on logout', function (): void {
     expect(fn () => api()->logout())
         ->toThrow(
             MissingSession::class,
@@ -80,21 +80,21 @@ it('throws an Exception when session id is missing on logout', function () {
         );
 });
 
-it('returns true when logout on not existing session', function () {
+it('returns true when logout on not existing session', function (): void {
     $api = api()->setSessionId('abc')->logout();
 
     expect($api)
         ->toBeTrue();
 });
 
-it('returns data status of service', function () {
+it('returns data status of service', function (): void {
     $api = api()->login()->dataStatus();
 
     expect($api)
         ->toBeInstanceOf(DateTimeInterface::class);
 });
 
-it('throws an Exception when not logged to get data status', function () {
+it('throws an Exception when not logged to get data status', function (): void {
     expect(fn () => api()->dataStatus())
         ->toThrow(
             IncorrectDataStatus::class,
@@ -102,7 +102,7 @@ it('throws an Exception when not logged to get data status', function () {
         );
 });
 
-it('returns message code of service', function () {
+it('returns message code of service', function (): void {
     $api = api()->login()->getMessageCode();
 
     expect($api)
@@ -110,7 +110,7 @@ it('returns message code of service', function () {
         ->toBe(0);
 });
 
-it('throws an Exception when not logged for message code', function () {
+it('throws an Exception when not logged for message code', function (): void {
     expect(fn () => api()->getMessageCode())
         ->toThrow(
             MissingSession::class,
@@ -118,7 +118,7 @@ it('throws an Exception when not logged for message code', function () {
         );
 });
 
-it('returns positive session status', function () {
+it('returns positive session status', function (): void {
     $api = api()->login()->getSessionStatus();
 
     expect($api)
@@ -126,7 +126,7 @@ it('returns positive session status', function () {
         ->toBeTrue();
 });
 
-it('returns negative session status', function () {
+it('returns negative session status', function (): void {
     $api = api()->getSessionStatus();
 
     expect($api)
@@ -134,7 +134,7 @@ it('returns negative session status', function () {
         ->toBeFalse();
 });
 
-it('returns service status', function () {
+it('returns service status', function (): void {
     $api = api()->getServiceStatus();
 
     expect($api)
@@ -142,7 +142,7 @@ it('returns service status', function () {
         ->toBe(1);
 });
 
-it('returns service message', function () {
+it('returns service message', function (): void {
     $api = api()->getServiceMessage();
 
     expect($api)
@@ -150,7 +150,7 @@ it('returns service message', function () {
         ->toBe('Usluga dostepna');
 });
 
-it('returns entity by NIP', function () {
+it('returns entity by NIP', function (): void {
     $api = api()->login()->getByNip('5561007611');
 
     expect($api->result())
@@ -161,7 +161,7 @@ it('returns entity by NIP', function () {
         ]);
 });
 
-it('throws an Exception when not logged to get entity by NIP', function () {
+it('throws an Exception when not logged to get entity by NIP', function (): void {
     expect(fn () => api()->getByNip('5561007611'))
         ->toThrow(
             MissingSession::class,
@@ -169,7 +169,7 @@ it('throws an Exception when not logged to get entity by NIP', function () {
         );
 });
 
-it('throws an Exception when not found entity by NIP', function () {
+it('throws an Exception when not found entity by NIP', function (): void {
     expect(fn () => api()->login()->getByNip(' '))
         ->toThrow(
             NotFoundEntity::class,
@@ -177,7 +177,7 @@ it('throws an Exception when not found entity by NIP', function () {
         );
 });
 
-it('returns entity by KRS', function () {
+it('returns entity by KRS', function (): void {
     $api = api()->login()->getByKrs('0000496427');
 
     expect($api->result())
@@ -188,7 +188,7 @@ it('returns entity by KRS', function () {
         ]);
 });
 
-it('throws an Exception when not logged to get entity by KRS', function () {
+it('throws an Exception when not logged to get entity by KRS', function (): void {
     expect(fn () => api()->getByKrs('0000496427'))
         ->toThrow(
             MissingSession::class,
@@ -196,7 +196,7 @@ it('throws an Exception when not logged to get entity by KRS', function () {
         );
 });
 
-it('throws an Exception when not found entity by KRS', function () {
+it('throws an Exception when not found entity by KRS', function (): void {
     expect(fn () => api()->login()->getByKrs(' '))
         ->toThrow(
             NotFoundEntity::class,
@@ -204,7 +204,7 @@ it('throws an Exception when not found entity by KRS', function () {
         );
 });
 
-it('returns entity by REGON', function () {
+it('returns entity by REGON', function (): void {
     $api = api()->login()->getByRegon('091187826');
 
     expect($api->result())
@@ -216,7 +216,7 @@ it('returns entity by REGON', function () {
         ]);
 });
 
-it('throws an Exception when not logged to get entity by REGON', function () {
+it('throws an Exception when not logged to get entity by REGON', function (): void {
     expect(fn () => api()->getByRegon('091187826'))
         ->toThrow(
             MissingSession::class,
@@ -224,7 +224,7 @@ it('throws an Exception when not logged to get entity by REGON', function () {
         );
 });
 
-it('throws an Exception when not found entity by REGON', function () {
+it('throws an Exception when not found entity by REGON', function (): void {
     expect(fn () => api()->login()->getByRegon(' '))
         ->toThrow(
             NotFoundEntity::class,
@@ -232,7 +232,7 @@ it('throws an Exception when not found entity by REGON', function () {
         );
 });
 
-it('returns many entities by multiple NIP', function () {
+it('returns many entities by multiple NIP', function (): void {
     $api = api()->login()->getByNips(['5561007611', '5260030236']);
 
     expect($api->result())
@@ -250,7 +250,7 @@ it('returns many entities by multiple NIP', function () {
         );
 });
 
-it('throws an Exception when not logged to get many entities by multiple NIP', function () {
+it('throws an Exception when not logged to get many entities by multiple NIP', function (): void {
     expect(fn () => api()->getByNips(['5561007611']))
         ->toThrow(
             MissingSession::class,
@@ -258,7 +258,7 @@ it('throws an Exception when not logged to get many entities by multiple NIP', f
         );
 });
 
-it('throws an Exception when not found many entities by multiple NIP', function () {
+it('throws an Exception when not found many entities by multiple NIP', function (): void {
     expect(fn () => api()->login()->getByNips([' ']))
         ->toThrow(
             NotFoundEntity::class,
@@ -266,7 +266,7 @@ it('throws an Exception when not found many entities by multiple NIP', function 
         );
 });
 
-it('throws an Exception when not provided NIPs', function () {
+it('throws an Exception when not provided NIPs', function (): void {
     expect(fn () => api()->login()->getByNips([]))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -274,7 +274,7 @@ it('throws an Exception when not provided NIPs', function () {
         );
 });
 
-it('throws an Exception when provided too many NIPs', function () {
+it('throws an Exception when provided too many NIPs', function (): void {
     expect(fn () => api()->login()->getByNips(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -282,7 +282,7 @@ it('throws an Exception when provided too many NIPs', function () {
         );
 });
 
-it('returns many entities by multiple KRS', function () {
+it('returns many entities by multiple KRS', function (): void {
     $api = api()->login()->getByKrses(['0000496427', '0000149371']);
 
     expect($api->result())
@@ -300,7 +300,7 @@ it('returns many entities by multiple KRS', function () {
         );
 });
 
-it('throws an Exception when not logged to get many entities by multiple KRS', function () {
+it('throws an Exception when not logged to get many entities by multiple KRS', function (): void {
     expect(fn () => api()->getByKrses(['0000496427']))
         ->toThrow(
             MissingSession::class,
@@ -308,7 +308,7 @@ it('throws an Exception when not logged to get many entities by multiple KRS', f
         );
 });
 
-it('throws an Exception when not found many entities by multiple KRS', function () {
+it('throws an Exception when not found many entities by multiple KRS', function (): void {
     expect(fn () => api()->login()->getByKrses([' ']))
         ->toThrow(
             NotFoundEntity::class,
@@ -316,7 +316,7 @@ it('throws an Exception when not found many entities by multiple KRS', function 
         );
 });
 
-it('throws an Exception when not provided KRSs', function () {
+it('throws an Exception when not provided KRSs', function (): void {
     expect(fn () => api()->login()->getByKrses([]))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -324,7 +324,7 @@ it('throws an Exception when not provided KRSs', function () {
         );
 });
 
-it('throws an Exception when provided too many KRSs', function () {
+it('throws an Exception when provided too many KRSs', function (): void {
     expect(fn () => api()->login()->getByKrses(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -332,7 +332,7 @@ it('throws an Exception when provided too many KRSs', function () {
         );
 });
 
-it('returns many entities by multiple REGON', function () {
+it('returns many entities by multiple REGON', function (): void {
     $api = api()->login()->getByRegons(['091187826', '010421047']);
 
     expect($api->result())
@@ -352,7 +352,7 @@ it('returns many entities by multiple REGON', function () {
         );
 });
 
-it('throws an Exception when not logged to get many entities by multiple REGON', function () {
+it('throws an Exception when not logged to get many entities by multiple REGON', function (): void {
     expect(fn () => api()->getByRegons(['0000496427']))
         ->toThrow(
             MissingSession::class,
@@ -360,7 +360,7 @@ it('throws an Exception when not logged to get many entities by multiple REGON',
         );
 });
 
-it('throws an Exception when not found many entities by multiple REGON', function () {
+it('throws an Exception when not found many entities by multiple REGON', function (): void {
     expect(fn () => api()->login()->getByRegons([' ']))
         ->toThrow(
             NotFoundEntity::class,
@@ -368,7 +368,7 @@ it('throws an Exception when not found many entities by multiple REGON', functio
         );
 });
 
-it('throws an Exception when not provided REGONs', function () {
+it('throws an Exception when not provided REGONs', function (): void {
     expect(fn () => api()->login()->getByRegons([]))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -376,7 +376,7 @@ it('throws an Exception when not provided REGONs', function () {
         );
 });
 
-it('throws an Exception when provided too many REGONs', function () {
+it('throws an Exception when provided too many REGONs', function (): void {
     expect(fn () => api()->login()->getByRegons(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -384,7 +384,7 @@ it('throws an Exception when provided too many REGONs', function () {
         );
 });
 
-it('returns many entities by multiple REGON 14', function () {
+it('returns many entities by multiple REGON 14', function (): void {
     $api = api()->login()->getByRegons14(['00000002300041']);
 
     expect($api->result())
@@ -399,7 +399,7 @@ it('returns many entities by multiple REGON 14', function () {
         );
 });
 
-it('throws an Exception when not logged to get many entities by multiple REGON 14', function () {
+it('throws an Exception when not logged to get many entities by multiple REGON 14', function (): void {
     expect(fn () => api()->getByRegons14(['0000496427']))
         ->toThrow(
             MissingSession::class,
@@ -407,7 +407,7 @@ it('throws an Exception when not logged to get many entities by multiple REGON 1
         );
 });
 
-it('throws an Exception when not found many entities by multiple REGON 14', function () {
+it('throws an Exception when not found many entities by multiple REGON 14', function (): void {
     expect(fn () => api()->login()->getByRegons14([' ']))
         ->toThrow(
             NotFoundEntity::class,
@@ -415,7 +415,7 @@ it('throws an Exception when not found many entities by multiple REGON 14', func
         );
 });
 
-it('throws an Exception when not provided REGONs 14', function () {
+it('throws an Exception when not provided REGONs 14', function (): void {
     expect(fn () => api()->login()->getByRegons14([]))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -423,7 +423,7 @@ it('throws an Exception when not provided REGONs 14', function () {
         );
 });
 
-it('throws an Exception when provided too many REGONs 14', function () {
+it('throws an Exception when provided too many REGONs 14', function (): void {
     expect(fn () => api()->login()->getByRegons14(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
@@ -431,7 +431,7 @@ it('throws an Exception when provided too many REGONs 14', function () {
         );
 });
 
-it('returns full report about entity', function () {
+it('returns full report about entity', function (): void {
     $api = api()->login()->getFullReport('091187826');
 
     expect($api)
@@ -439,7 +439,7 @@ it('returns full report about entity', function () {
         ->toHaveProperty('praw_regon9', '091187826');
 });
 
-it('returns full report about person entity', function () {
+it('returns full report about person entity', function (): void {
     $api = api()->login()->getFullReport('151482826');
 
     expect($api)
@@ -447,7 +447,7 @@ it('returns full report about person entity', function () {
         ->toHaveProperty('fiz_regon9', '151482826');
 });
 
-it('throws an Exception when not found any entity for full report', function () {
+it('throws an Exception when not found any entity for full report', function (): void {
     expect(fn () => api()->login()->getFullReport(' '))
         ->toThrow(
             NotFoundEntity::class,
