@@ -9,7 +9,6 @@ use SoapHeader;
 
 class SoapService
 {
-    protected string $wsdl;
     protected SoapClient $client;
     /**
      * @var array<string, mixed>
@@ -28,16 +27,16 @@ class SoapService
      * @var array<string, \SoapHeader>
      */
     protected array $headers = [];
-    protected string $location;
 
     /**
      * @param array<string, class-string<\Rudashi\GusApi\Contracts\Response>> $classMap
      */
-    public function __construct(string $wsdl, string $location, array $classMap)
-    {
+    public function __construct(
+        protected string $wsdl,
+        protected string $location,
+        array $classMap,
+    ) {
         $this->options['classmap'] = $classMap;
-        $this->location = $location;
-        $this->wsdl = $wsdl;
     }
 
     public function addClient(SoapClient $client): static
