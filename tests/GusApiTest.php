@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Rudashi\GusApi\Tests\GusApiTest;
 
+use DateTime;
 use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
+use Rudashi\GusApi\Contracts\Response;
 use Rudashi\GusApi\Enums\CompanyType;
 use Rudashi\GusApi\Exceptions\IncorrectDataStatus;
 use Rudashi\GusApi\Exceptions\InvalidUserKey;
 use Rudashi\GusApi\Exceptions\LimitedIdentifiers;
 use Rudashi\GusApi\Exceptions\MissingSession;
 use Rudashi\GusApi\Exceptions\NotFoundEntity;
+use Rudashi\GusApi\GusApi;
+use Rudashi\GusApi\Responses\Collection;
 use Rudashi\GusApi\Services\CompanyModel;
 use Rudashi\GusApi\Services\FullReport\CompanyResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyResponse;
@@ -28,7 +32,7 @@ it('can set session id', function (): void {
 });
 
 it('throws an Exception when session not ', function (): void {
-    expect(fn () => api()->getSessionId())
+    expect(fn (): string => api()->getSessionId())
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -58,7 +62,7 @@ it('assign session id when login is success', function (): void {
 });
 
 it('throws an Exception when provide incorrect login', function (): void {
-    expect(fn () => api('test')->login())
+    expect(fn (): GusApi => api('test')->login())
         ->toThrow(
             InvalidUserKey::class,
             'User key test is invalid'
@@ -73,7 +77,7 @@ it('can logout', function (): void {
 });
 
 it('throws an Exception when session id is missing on logout', function (): void {
-    expect(fn () => api()->logout())
+    expect(fn (): bool => api()->logout())
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -95,7 +99,7 @@ it('returns data status of service', function (): void {
 });
 
 it('throws an Exception when not logged to get data status', function (): void {
-    expect(fn () => api()->dataStatus())
+    expect(fn (): DateTime => api()->dataStatus())
         ->toThrow(
             IncorrectDataStatus::class,
             'Invalid date of data status.'
@@ -111,7 +115,7 @@ it('returns message code of service', function (): void {
 });
 
 it('throws an Exception when not logged for message code', function (): void {
-    expect(fn () => api()->getMessageCode())
+    expect(fn (): int => api()->getMessageCode())
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -162,7 +166,7 @@ it('returns entity by NIP', function (): void {
 });
 
 it('throws an Exception when not logged to get entity by NIP', function (): void {
-    expect(fn () => api()->getByNip('5561007611'))
+    expect(fn (): Response => api()->getByNip('5561007611'))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -170,7 +174,7 @@ it('throws an Exception when not logged to get entity by NIP', function (): void
 });
 
 it('throws an Exception when not found entity by NIP', function (): void {
-    expect(fn () => api()->login()->getByNip(' '))
+    expect(fn (): Response => api()->login()->getByNip(' '))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -189,7 +193,7 @@ it('returns entity by KRS', function (): void {
 });
 
 it('throws an Exception when not logged to get entity by KRS', function (): void {
-    expect(fn () => api()->getByKrs('0000496427'))
+    expect(fn (): Response => api()->getByKrs('0000496427'))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -197,7 +201,7 @@ it('throws an Exception when not logged to get entity by KRS', function (): void
 });
 
 it('throws an Exception when not found entity by KRS', function (): void {
-    expect(fn () => api()->login()->getByKrs(' '))
+    expect(fn (): Response => api()->login()->getByKrs(' '))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -217,7 +221,7 @@ it('returns entity by REGON', function (): void {
 });
 
 it('throws an Exception when not logged to get entity by REGON', function (): void {
-    expect(fn () => api()->getByRegon('091187826'))
+    expect(fn (): Response => api()->getByRegon('091187826'))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -225,7 +229,7 @@ it('throws an Exception when not logged to get entity by REGON', function (): vo
 });
 
 it('throws an Exception when not found entity by REGON', function (): void {
-    expect(fn () => api()->login()->getByRegon(' '))
+    expect(fn (): Response => api()->login()->getByRegon(' '))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -251,7 +255,7 @@ it('returns many entities by multiple NIP', function (): void {
 });
 
 it('throws an Exception when not logged to get many entities by multiple NIP', function (): void {
-    expect(fn () => api()->getByNips(['5561007611']))
+    expect(fn (): Collection => api()->getByNips(['5561007611']))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -259,7 +263,7 @@ it('throws an Exception when not logged to get many entities by multiple NIP', f
 });
 
 it('throws an Exception when not found many entities by multiple NIP', function (): void {
-    expect(fn () => api()->login()->getByNips([' ']))
+    expect(fn (): Collection => api()->login()->getByNips([' ']))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -267,7 +271,7 @@ it('throws an Exception when not found many entities by multiple NIP', function 
 });
 
 it('throws an Exception when not provided NIPs', function (): void {
-    expect(fn () => api()->login()->getByNips([]))
+    expect(fn (): Collection => api()->login()->getByNips([]))
         ->toThrow(
             LimitedIdentifiers::class,
             'Missing identifiers.'
@@ -275,7 +279,7 @@ it('throws an Exception when not provided NIPs', function (): void {
 });
 
 it('throws an Exception when provided too many NIPs', function (): void {
-    expect(fn () => api()->login()->getByNips(range(0, 25)))
+    expect(fn (): Collection => api()->login()->getByNips(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
             'Too many identifiers. The maximum allowed is 20.'
@@ -301,7 +305,7 @@ it('returns many entities by multiple KRS', function (): void {
 });
 
 it('throws an Exception when not logged to get many entities by multiple KRS', function (): void {
-    expect(fn () => api()->getByKrses(['0000496427']))
+    expect(fn (): Collection => api()->getByKrses(['0000496427']))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -309,7 +313,7 @@ it('throws an Exception when not logged to get many entities by multiple KRS', f
 });
 
 it('throws an Exception when not found many entities by multiple KRS', function (): void {
-    expect(fn () => api()->login()->getByKrses([' ']))
+    expect(fn (): Collection => api()->login()->getByKrses([' ']))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -317,7 +321,7 @@ it('throws an Exception when not found many entities by multiple KRS', function 
 });
 
 it('throws an Exception when not provided KRSs', function (): void {
-    expect(fn () => api()->login()->getByKrses([]))
+    expect(fn (): Collection => api()->login()->getByKrses([]))
         ->toThrow(
             LimitedIdentifiers::class,
             'Missing identifiers.'
@@ -325,7 +329,7 @@ it('throws an Exception when not provided KRSs', function (): void {
 });
 
 it('throws an Exception when provided too many KRSs', function (): void {
-    expect(fn () => api()->login()->getByKrses(range(0, 25)))
+    expect(fn (): Collection => api()->login()->getByKrses(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
             'Too many identifiers. The maximum allowed is 20.'
@@ -353,7 +357,7 @@ it('returns many entities by multiple REGON', function (): void {
 });
 
 it('throws an Exception when not logged to get many entities by multiple REGON', function (): void {
-    expect(fn () => api()->getByRegons(['0000496427']))
+    expect(fn (): Collection => api()->getByRegons(['0000496427']))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -361,7 +365,7 @@ it('throws an Exception when not logged to get many entities by multiple REGON',
 });
 
 it('throws an Exception when not found many entities by multiple REGON', function (): void {
-    expect(fn () => api()->login()->getByRegons([' ']))
+    expect(fn (): Collection => api()->login()->getByRegons([' ']))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -369,7 +373,7 @@ it('throws an Exception when not found many entities by multiple REGON', functio
 });
 
 it('throws an Exception when not provided REGONs', function (): void {
-    expect(fn () => api()->login()->getByRegons([]))
+    expect(fn (): Collection => api()->login()->getByRegons([]))
         ->toThrow(
             LimitedIdentifiers::class,
             'Missing identifiers.'
@@ -377,7 +381,7 @@ it('throws an Exception when not provided REGONs', function (): void {
 });
 
 it('throws an Exception when provided too many REGONs', function (): void {
-    expect(fn () => api()->login()->getByRegons(range(0, 25)))
+    expect(fn (): Collection => api()->login()->getByRegons(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
             'Too many identifiers. The maximum allowed is 20.'
@@ -400,7 +404,7 @@ it('returns many entities by multiple REGON 14', function (): void {
 });
 
 it('throws an Exception when not logged to get many entities by multiple REGON 14', function (): void {
-    expect(fn () => api()->getByRegons14(['0000496427']))
+    expect(fn (): Collection => api()->getByRegons14(['0000496427']))
         ->toThrow(
             MissingSession::class,
             'Session is not started.'
@@ -408,7 +412,7 @@ it('throws an Exception when not logged to get many entities by multiple REGON 1
 });
 
 it('throws an Exception when not found many entities by multiple REGON 14', function (): void {
-    expect(fn () => api()->login()->getByRegons14([' ']))
+    expect(fn (): Collection => api()->login()->getByRegons14([' ']))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono podmiotu dla podanych kryteriów wyszukiwania.'
@@ -416,7 +420,7 @@ it('throws an Exception when not found many entities by multiple REGON 14', func
 });
 
 it('throws an Exception when not provided REGONs 14', function (): void {
-    expect(fn () => api()->login()->getByRegons14([]))
+    expect(fn (): Collection => api()->login()->getByRegons14([]))
         ->toThrow(
             LimitedIdentifiers::class,
             'Missing identifiers.'
@@ -424,7 +428,7 @@ it('throws an Exception when not provided REGONs 14', function (): void {
 });
 
 it('throws an Exception when provided too many REGONs 14', function (): void {
-    expect(fn () => api()->login()->getByRegons14(range(0, 25)))
+    expect(fn (): Collection => api()->login()->getByRegons14(range(0, 25)))
         ->toThrow(
             LimitedIdentifiers::class,
             'Too many identifiers. The maximum allowed is 20.'
@@ -448,7 +452,7 @@ it('returns full report about person entity', function (): void {
 });
 
 it('throws an Exception when not found any entity for full report', function (): void {
-    expect(fn () => api()->login()->getFullReport(' '))
+    expect(fn (): Response => api()->login()->getFullReport(' '))
         ->toThrow(
             NotFoundEntity::class,
             'Nie znaleziono wpisu dla podanych kryteriów wyszukiwania.'

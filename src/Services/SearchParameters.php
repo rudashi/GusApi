@@ -30,7 +30,7 @@ readonly class SearchParameters
             'Regon' => $this->regon,
             'Regony9zn' => $this->regony,
             'Regony14zn' => $this->regony14,
-        ], static fn ($value) => $value !== null);
+        ], static fn ($value): bool => $value !== null);
     }
 
     public static function krs(string $value): self

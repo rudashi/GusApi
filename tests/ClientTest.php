@@ -170,7 +170,7 @@ it('throws an Exception when NIP business entity not exists', function (): void 
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 nip: '5561007',
             ))
@@ -185,7 +185,7 @@ it('throws an Exception when not logged while searching entity by NIP', function
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 nip: '5561007',
             ))
@@ -217,7 +217,7 @@ it('throws an Exception when KRS business entity not exists', function (): void 
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 krs: '00496427',
             ))
@@ -232,7 +232,7 @@ it('throws an Exception when not logged while searching entity by KRS', function
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 krs: '0000496427',
             ))
@@ -265,7 +265,7 @@ it('throws an Exception when REGON business entity not exists', function (): voi
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 regon: '91187826',
             ))
@@ -280,7 +280,7 @@ it('throws an Exception when not logged while searching entity by REGON', functi
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 regon: '091187826',
             ))
@@ -333,7 +333,7 @@ it('throws an Exception when not found any NIP', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
+    expect(fn (): Collection => $client->searchEntity(
         request: new SearchDataRequest(new SearchParameters(
             nipy: '556100761,526003023',
         )),
@@ -348,7 +348,7 @@ it('throws an Exception when not logged while searching multiple entities by NIP
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 nipy: '556100761,526003023',
             ))
@@ -401,7 +401,7 @@ it('throws an Exception when not found any KRS', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
+    expect(fn (): Collection => $client->searchEntity(
         request: new SearchDataRequest(new SearchParameters(
             krsy: '000496427,000149371',
         )),
@@ -416,7 +416,7 @@ it('throws an Exception when not logged while searching multiple entities by KRS
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 krsy: '000496427,000149371',
             ))
@@ -469,7 +469,7 @@ it('throws an Exception when not found any REGON', function (): void {
     $client = client();
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
-    expect(fn () => $client->searchEntity(
+    expect(fn (): Collection => $client->searchEntity(
         request: new SearchDataRequest(new SearchParameters(
             regony: '09118726,1042147',
         )),
@@ -484,7 +484,7 @@ it('throws an Exception when not logged while searching multiple entities by REG
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 regony: '09118726,1042147',
             ))
@@ -517,7 +517,7 @@ it('throws an Exception when REGON_14 business entity not exists', function (): 
     $client->login(new LoginRequest(DEFAULT_KEY))->result();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 regony14: '000002300041',
             ))
@@ -532,7 +532,7 @@ it('throws an Exception when not logged while searching multiple entities by REG
     $client = client();
 
     expect(
-        fn () => $client->searchEntity(
+        fn (): Collection => $client->searchEntity(
             new SearchDataRequest(new SearchParameters(
                 regony14: '000002300041',
             ))
@@ -789,7 +789,7 @@ describe('Action::FULL_REPORT', function (): void {
     });
 
     it('throws an Exception when not found entity report', function (): void {
-        expect(fn () => $this->gus->getFullReport(
+        expect(fn (): Collection => $this->gus->getFullReport(
             new FullReportRequest(
                 regon: '091187826',
                 report: ReportName::PERSON_GENERAL,

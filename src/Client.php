@@ -70,7 +70,7 @@ class Client
         if ($response->isAuthorized()) {
             $this->getSoap()->editService(
                 name: self::SERVICE,
-                closure: static fn (SoapService $service) => $service->setContextOptions([
+                closure: static fn (SoapService $service): SoapService => $service->setContextOptions([
                     'http' => [
                         'header' => 'sid: ' . $response->result(),
                     ],
