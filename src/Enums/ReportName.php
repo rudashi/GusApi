@@ -14,6 +14,7 @@ use Rudashi\GusApi\Services\FullReport\LocalResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyPKDResponse;
 use Rudashi\GusApi\Services\FullReport\PersonCompanyResponse;
 use Rudashi\GusApi\Services\FullReport\PersonResponse;
+use SimpleXMLElement;
 
 enum ReportName: string
 {
@@ -75,26 +76,26 @@ enum ReportName: string
             self::PERSON_OTHER,
             self::PERSON_DELETED => new PersonCompanyResponse(...self::map((array) $response['dane'])),
             self::PERSON_PKD => Collection::each(
-                static fn ($item): Response => PersonCompanyPKDResponse::forPerson(...self::map((array) $item)),
+                static fn (string|SimpleXMLElement $item): Response => PersonCompanyPKDResponse::forPerson(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::PERSON_LOCALS,
             self::LOCAL_PERSON => LocalResponse::forPerson(...self::map((array) $response['dane'])),
             self::LOCAL_PERSON_PKD => Collection::each(
-                static fn ($item): Response => PersonCompanyPKDResponse::forLocal(...self::map((array) $item)),
+                static fn (string|SimpleXMLElement $item): Response => PersonCompanyPKDResponse::forLocal(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::COMPANY => new CompanyResponse(...self::map((array) $response['dane'])),
             self::COMPANY_PKD => Collection::each(
-                static fn ($item): Response => CompanyPKDResponse::forCompany(...self::map((array) $item)),
+                static fn (string|SimpleXMLElement $item): Response => CompanyPKDResponse::forCompany(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::COMPANY_LOCALS => Collection::each(
-                static fn ($item): Response => LocalResponse::forCompany(...self::map((array) $item)),
+                static fn (string|SimpleXMLElement $item): Response => LocalResponse::forCompany(...self::map((array) $item)),
                 $response['dane'],
             ),
             self::COMPANY_PARTNERS => Collection::each(
-                static fn ($item): Response => new CompanyPartnersResponse(...(array) $item),
+                static fn (string|SimpleXMLElement $item): Response => new CompanyPartnersResponse(...(array) $item),
                 $response['dane'],
             ),
             self::COMPANY_TYPE => CompanyTypeResponse::of(self::map((array) $response['dane'])['Typ']),
@@ -113,6 +114,6 @@ enum ReportName: string
      */
     private static function map(array $items): array
     {
-        return array_map(static fn ($value): string => (string) $value, $items);
+        return array_map(static fn (string|SimpleXMLElement $value): string => (string) $value, $items);
     }
 }

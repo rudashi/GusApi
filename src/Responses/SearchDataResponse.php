@@ -60,7 +60,7 @@ class SearchDataResponse implements Response
     {
         if ($this->xml->count() > 1) {
             return Collection::each(
-                fn ($item): CompanyModel => $this->toCompanyModel((array) $item),
+                fn (SimpleXMLElement $item): CompanyModel => $this->toCompanyModel((array) $item),
                 $this->asArray()['dane'],
             );
         }
@@ -91,6 +91,6 @@ class SearchDataResponse implements Response
      */
     private function toCompanyModel(array $item): CompanyModel
     {
-        return new CompanyModel(...array_map(static fn ($value): string => (string) $value, $item));
+        return new CompanyModel(...array_map(static fn (string|SimpleXMLElement $value): string => (string) $value, $item));
     }
 }
