@@ -41,9 +41,7 @@ class SoapClient extends BaseClient
     }
 
     /**
-     * @param string $wsdl
      * @param array<string, mixed>|null $options
-     * @param string|null $location
      */
     public static function new(string $wsdl, ?array $options = null, ?string $location = null): self
     {
